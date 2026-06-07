@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tunaylar Baskül Sanayi ve Ticaret A.Ş.</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --red: #c0392b;
+            --dark: #1a1a1a;
+            --darker: #111;
+            --gray: #f5f5f5;
+            --mid-gray: #888;
+            --border: #e0e0e0;
+            --white: #fff;
+            --section-pad: 80px 0;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* ── TOP BAR ── */
+        .topbar {
+            background: var(--darker);
+            color: #aaa;
+            font-size: 13px;
+            padding: 8px 0;
+        }
+        .topbar .inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .topbar a { color: #aaa; text-decoration: none; }
+        .topbar a:hover { color: var(--white); }
+        .topbar .social a { margin-left: 12px; font-size: 15px; }
+
+        /* ── HEADER ── */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 75px;
+        }
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--dark);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        .logo span { color: var(--red); }
+
+        nav { display: flex; align-items: center; gap: 6px; }
+        nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            padding: 8px 14px;
+            border-radius: 4px;
+            transition: background .2s, color .2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        nav a:hover { background: var(--red); color: var(--white); }
+        nav .contact-btn {
+            background: var(--red);
+            color: var(--white);
+            padding: 8px 18px;
+            border-radius: 4px;
+        }
+        nav .contact-btn:hover { background: #a93226; }
+
+        /* phone in header */
+        .header-phone {
+            font-weight: 700;
+            color: var(--red);
+            font-size: 16px;
+            letter-spacing: 1px;
+        }
+
+        /* ── HERO SLIDER ── */
+        .hero {
+            position: relative;
+            height: 620px;
+            overflow: hidden;
+        }
+        .slides {
+            display: flex;
+            height: 100%;
+            transition: transform .8s ease;
+        }
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+        .slide::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0,0,0,.65) 0%, rgba(0,0,0,.1) 100%);
+        }
+        .slide-1 { background-image: url('https://tunaylar.com/wp-content/uploads/2019/11/tunaylar_banner_0023.jpg'); }
+        .slide-2 { background-image: url('https://tunaylar.com/wp-content/uploads/2020/01/tunaylar_banner_robotik.jpg'); }
+        .slide-3 { background-image: url('https://tunaylar.com/wp-content/uploads/2020/01/tunaylar_banner_kalite.jpg'); }
+
+        .slide-content {
+            position: absolute;
+            z-index: 2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-120px, -50%);
+            color: var(--white);
+            max-width: 560px;
+        }
+        .slide-content .badge {
+            display: inline-block;
+            background: var(--red);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 5px 12px;
+            border-radius: 3px;
+            margin-bottom: 18px;
+        }
+        .slide-content h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 18px;
+        }
+        .slide-content p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: rgba(255,255,255,.85);
+            margin-bottom: 28px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 13px 32px;
+            background: var(--red);
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            transition: background .2s, transform .2s;
+        }
+        .btn:hover { background: #a93226; transform: translateY(-2px); }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #fff;
+            margin-left: 12px;
+        }
+        .btn-outline:hover { background: rgba(255,255,255,.15); transform: translateY(-2px); }
+
+        /* slider arrows */
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background: rgba(255,255,255,.15);
+            border: none;
+            color: #fff;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background .2s;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .slider-btn:hover { background: var(--red); }
+        .slider-btn.prev { left: 24px; }
+        .slider-btn.next { right: 24px; }
+
+        /* slider dots */
+        .slider-dots {
+            position: absolute;
+            bottom: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            display: flex;
+            gap: 8px;
+        }
+        .dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.4);
+            cursor: pointer;
+            transition: background .3s;
+            border: none;
+        }
+        .dot.active { background: var(--red); }
+
+        /* ── STATS ── */
+        .stats {
+            background: var(--dark);
+            color: var(--white);
+            padding: 60px 0;
+        }
+        .stats-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .stats h2 {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 40px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+        @media (max-width: 900px) { .stats-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 560px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .stat-num {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--red);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        .stat-num span.plus::after { content: '+'; }
+        .stat-label {
+            font-size: 12px;
+            color: #aaa;
+            line-height: 1.4;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ── SECTION TITLE ── */
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-title .overline {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 12px;
+        }
+        .section-title h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 34px;
+            font-weight: 800;
+            color: var(--dark);
+            line-height: 1.2;
+        }
+        .section-title p {
+            margin-top: 16px;
+            color: #666;
+            font-size: 15px;
+            max-width: 620px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+        .divider {
+            width: 50px;
+            height: 3px;
+            background: var(--red);
+            margin: 16px auto 0;
+            border-radius: 2px;
+        }
+
+        /* ── CORPORATE ── */
+        .corporate {
+            padding: var(--section-pad);
+            background: var(--white);
+        }
+        .corporate-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        @media (max-width: 800px) { .corporate-inner { grid-template-columns: 1fr; } }
+
+        .corporate-text .overline {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--red);
+            display: block;
+            margin-bottom: 14px;
+        }
+        .corporate-text h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 20px;
+        }
+        .corporate-text p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 28px;
+        }
+        .corp-img {
+            position: relative;
+        }
+        .corp-img img {
+            width: 100%;
+            border-radius: 6px;
+            display: block;
+            object-fit: cover;
+            height: 400px;
+        }
+        .corp-badge {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            background: var(--red);
+            color: var(--white);
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(192,57,43,.4);
+        }
+        .corp-badge .num { font-size: 36px; line-height: 1; }
+        .corp-badge .txt { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; line-height: 1.3; }
+
+        /* ── PRODUCTS ── */
+        .products {
+            padding: var(--section-pad);
+            background: var(--gray);
+        }
+        .products-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        @media (max-width: 900px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 560px) { .products-grid { grid-template-columns: 1fr; } }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,.07);
+            transition: transform .3s, box-shadow .3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .product-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,.12); }
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        .product-card .card-body {
+            padding: 20px;
+        }
+        .product-card .tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 8px;
+            display: block;
+        }
+        .product-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        .product-card p {
+            font-size: 13px;
+            color: #777;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .card-link {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--red);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .card-link i { transition: transform .2s; }
+        .product-card:hover .card-link i { transform: translateX(4px); }
+
+        /* ── AUTOMATION ── */
+        .automation {
+            padding: var(--section-pad);
+            background: var(--dark);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        .automation::before {
+            content: '';
+            position: absolute;
+            top: -80px; right: -80px;
+            width: 400px; height: 400px;
+            border-radius: 50%;
+            background: rgba(192,57,43,.08);
+        }
+        .automation-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        @media (max-width: 800px) { .automation-inner { grid-template-columns: 1fr; } }
+
+        .automation-text .overline {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--red);
+            display: block;
+            margin-bottom: 14px;
+        }
+        .automation-text h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 30px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 20px;
+        }
+        .automation-text p {
+            color: #bbb;
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 28px;
+        }
+        .automation-features {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .auto-feat {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+        .auto-feat .icon {
+            width: 42px; height: 42px;
+            background: rgba(192,57,43,.2);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--red);
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .auto-feat h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+        .auto-feat p { font-size: 13px; color: #999; line-height: 1.5; margin: 0; }
+        .auto-img img {
+            width: 100%;
+            border-radius: 8px;
+            display: block;
+        }
+
+        /* ── SERVICES ── */
+        .services {
+            padding: var(--section-pad);
+            background: var(--white);
+        }
+        .services-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        @media (max-width: 800px) { .services-grid { grid-template-columns: 1fr; } }
+
+        .service-card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 36px 28px;
+            text-align: center;
+            transition: border-color .3s, box-shadow .3s, transform .3s;
+        }
+        .service-card:hover {
+            border-color: var(--red);
+            box-shadow: 0 8px 28px rgba(192,57,43,.12);
+            transform: translateY(-4px);
+        }
+        .service-icon {
+            width: 70px; height: 70px;
+            background: rgba(192,57,43,.08);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 22px;
+            font-size: 28px;
+            color: var(--red);
+            transition: background .3s;
+        }
+        .service-card:hover .service-icon { background: var(--red); color: #fff; }
+        .service-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+        .service-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* ── NEWS ── */
+        .news {
+            padding: var(--section-pad);
+            background: var(--gray);
+        }
+        .news-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+        @media (max-width: 900px) { .news-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 560px) { .news-grid { grid-template-columns: 1fr; } }
+
+        .news-card {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0,0,0,.06);
+            transition: transform .3s, box-shadow .3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .news-card:hover { transform: translateY(-5px); box-shadow: 0 12px 28px rgba(0,0,0,.1); }
+        .news-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+        .news-card .news-body { padding: 20px; }
+        .news-date {
+            font-size: 11px;
+            color: var(--mid-gray);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .news-card h3 {
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+        .news-card p {
+            font-size: 13px;
+            color: #777;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .read-more {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--red);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ── CTA BANNER ── */
+        .cta {
+            background: var(--red);
+            padding: 70px 20px;
+            text-align: center;
+            color: var(--white);
+        }
+        .cta h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+        .cta p {
+            font-size: 16px;
+            margin-bottom: 32px;
+            opacity: .9;
+            max-width: 540px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .btn-white {
+            background: var(--white);
+            color: var(--red);
+            font-weight: 700;
+        }
+        .btn-white:hover { background: #f0f0f0; transform: translateY(-2px); }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #111;
+            color: #aaa;
+            padding: 60px 0 0;
+        }
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 40px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+        @media (max-width: 900px) { .footer-inner { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 560px) { .footer-inner { grid-template-columns: 1fr; } }
+
+        .footer-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--white);
+            margin-bottom: 16px;
+            display: block;
+            text-decoration: none;
+        }
+        .footer-logo span { color: var(--red); }
+        .footer-about p { font-size: 13px; line-height: 1.8; margin-bottom: 20px; }
+        .footer-social { display: flex; gap: 10px; }
+        .footer-social a {
+            width: 36px; height: 36px;
+            background: #222;
+            border-radius: 4px;
+            display: flex; align-items: center; justify-content: center;
+            color: #aaa;
+            font-size: 14px;
+            text-decoration: none;
+            transition: background .2s, color .2s;
+        }
+        .footer-social a:hover { background: var(--red); color: #fff; }
+
+        .footer-col h4 {
+            color: var(--white);
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--red);
+            display: inline-block;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; }
+        .footer-col ul li a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color .2s;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .footer-col ul li a::before { content: '›'; color: var(--red); font-size: 16px; }
+        .footer-col ul li a:hover { color: var(--white); }
+        .footer-contact-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 14px;
+            align-items: flex-start;
+        }
+        .footer-contact-item i { color: var(--red); margin-top: 2px; }
+        .footer-contact-item span { font-size: 13px; line-height: 1.6; }
+
+        .footer-bottom {
+            border-top: 1px solid #222;
+            padding: 18px 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #555;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ── FLOATING ── */
+        .float-btns {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 999;
+        }
+        .float-btn {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+            text-decoration: none;
+            box-shadow: 0 4px 16px rgba(0,0,0,.25);
+            transition: transform .2s, box-shadow .2s;
+        }
+        .float-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,.3); }
+        .float-wa { background: #25D366; color: #fff; }
+        .float-tg { background: #0088cc; color: #fff; }
+
+        /* Responsive nav */
+        .nav-toggle { display: none; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--dark); }
+        @media (max-width: 900px) {
+            nav { display: none; position: absolute; top: 75px; left: 0; right: 0; background: #fff; flex-direction: column; padding: 16px; box-shadow: 0 4px 12px rgba(0,0,0,.1); align-items: flex-start; gap: 2px; }
+            nav.open { display: flex; }
+            .nav-toggle { display: block; }
+            .header-phone { display: none; }
+            .slide-content { transform: translate(-50%, -50%); left: 50%; text-align: center; }
+            .hero { height: 480px; }
+            .slide-content h2 { font-size: 28px; }
+        }
+
+        /* ── AUTH BUTTONS IN NAV ── */
+        .nav-auth { display: flex; align-items: center; gap: 8px; margin-left: 12px; }
+        .nav-auth .auth-btn {
+            font-size: 13px;
+            font-weight: 600;
+            padding: 7px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            transition: background .2s, color .2s, transform .2s;
+            font-family: 'Roboto', sans-serif;
+            letter-spacing: 0.4px;
+        }
+        .btn-login {
+            background: transparent;
+            border: 2px solid var(--red) !important;
+            color: var(--red);
+        }
+        .btn-login:hover { background: var(--red); color: #fff; }
+        .btn-register {
+            background: var(--red);
+            color: #fff;
+        }
+        .btn-register:hover { background: #a93226; transform: translateY(-1px); }
+
+        /* user greeting */
+        .user-greeting {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        .user-greeting .avatar {
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            background: var(--red);
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .btn-logout {
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 12px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background .2s, color .2s;
+            font-family: 'Roboto', sans-serif;
+        }
+        .btn-logout:hover { background: #f5f5f5; color: var(--red); }
+
+        /* ── MODAL OVERLAY ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.55);
+            z-index: 9000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .25s;
+            backdrop-filter: blur(3px);
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* ── MODAL BOX ── */
+        .modal {
+            background: #fff;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 420px;
+            margin: 16px;
+            box-shadow: 0 24px 60px rgba(0,0,0,.25);
+            overflow: hidden;
+            transform: translateY(20px) scale(.97);
+            transition: transform .25s;
+        }
+        .modal-overlay.active .modal { transform: translateY(0) scale(1); }
+
+        .modal-header {
+            background: var(--dark);
+            padding: 28px 32px 22px;
+            position: relative;
+        }
+        .modal-header .logo-sm {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.3px;
+            margin-bottom: 8px;
+        }
+        .modal-header .logo-sm span { color: var(--red); }
+        .modal-header h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            margin: 0;
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px; right: 20px;
+            background: rgba(255,255,255,.1);
+            border: none;
+            color: #fff;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: background .2s;
+        }
+        .modal-close:hover { background: var(--red); }
+
+        /* tabs */
+        .modal-tabs {
+            display: flex;
+            border-bottom: 2px solid #f0f0f0;
+            background: #fafafa;
+        }
+        .modal-tab {
+            flex: 1;
+            padding: 14px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: #999;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: color .2s, border-color .2s;
+            font-family: 'Roboto', sans-serif;
+        }
+        .modal-tab.active { color: var(--red); border-bottom-color: var(--red); }
+
+        /* forms */
+        .modal-body { padding: 28px 32px 32px; }
+        .modal-form { display: none; }
+        .modal-form.active { display: block; }
+
+        .form-group { margin-bottom: 18px; }
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #555;
+            margin-bottom: 7px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 11px 14px;
+            border: 2px solid #e8e8e8;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: 'Roboto', sans-serif;
+            color: var(--dark);
+            transition: border-color .2s, box-shadow .2s;
+            outline: none;
+            background: #fafafa;
+        }
+        .form-group input:focus {
+            border-color: var(--red);
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(192,57,43,.1);
+        }
+        .form-group input.error { border-color: #e74c3c; }
+
+        .form-error {
+            font-size: 12px;
+            color: #e74c3c;
+            margin-top: 5px;
+            display: none;
+        }
+        .form-error.show { display: block; }
+
+        .form-alert {
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            margin-bottom: 18px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+        .form-alert.show { display: flex; }
+        .form-alert.success { background: #eafaf1; color: #1e8449; border: 1px solid #a9dfbf; }
+        .form-alert.danger  { background: #fdedec; color: #922b21; border: 1px solid #f5b7b1; }
+
+        .btn-submit {
+            width: 100%;
+            padding: 13px;
+            background: var(--red);
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: background .2s, transform .2s;
+            margin-top: 4px;
+        }
+        .btn-submit:hover { background: #a93226; transform: translateY(-1px); }
+        .btn-submit:active { transform: translateY(0); }
+
+        .form-switch {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
+            color: #888;
+        }
+        .form-switch a {
+            color: var(--red);
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .form-switch a:hover { text-decoration: underline; }
+
+        /* password eye toggle */
+        .input-wrap { position: relative; }
+        .input-wrap input { padding-right: 42px; }
+        .eye-toggle {
+            position: absolute;
+            right: 12px; top: 50%;
+            transform: translateY(-50%);
+            background: none; border: none;
+            color: #aaa; cursor: pointer;
+            font-size: 15px;
+            padding: 0;
+            transition: color .2s;
+        }
+        .eye-toggle:hover { color: var(--red); }
+
+        /* password strength bar */
+        .strength-bar { height: 4px; border-radius: 2px; background: #eee; margin-top: 6px; overflow: hidden; }
+        .strength-fill { height: 100%; width: 0; border-radius: 2px; transition: width .3s, background .3s; }
+
+        /* toast notification */
+        .toast {
+            position: fixed;
+            bottom: 90px;
+            right: 28px;
+            background: #1a1a1a;
+            color: #fff;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 24px rgba(0,0,0,.25);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform .3s, opacity .3s;
+            max-width: 320px;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast i { font-size: 16px; }
+        .toast.t-success i { color: #2ecc71; }
+        .toast.t-error   i { color: #e74c3c; }
+    </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+    <div class="inner">
+        <span><i class="fas fa-map-marker-alt" style="color:var(--red);margin-right:6px"></i>İkitelli Organize Sanayi Bölgesi, İstanbul, Türkiye</span>
+        <div class="social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header>
+    <div class="header-inner">
+        <a href="#" class="logo">TUNAYLAR <span>BASKÜL</span></a>
+        <button class="nav-toggle" onclick="document.querySelector('nav').classList.toggle('open')">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+            <a href="index.html">Ana Sayfa</a>
+            <a href="shop.html">Mağaza</a>
+            <a href="#urunler">Ürünler</a>
+            <a href="#kurumsal">Kurumsal</a>
+            <a href="#hizmetler">Hizmetler</a>
+            <a href="#haberler">Haberler</a>
+            <a href="#iletisim" class="contact-btn">İletişim</a>
+        </nav>
+
+        <!-- AUTH AREA (toggled by JS) -->
+        <div class="nav-auth" id="navAuth">
+            <!-- guest state -->
+            <div id="guestBtns">
+                <button class="auth-btn btn-login"    onclick="openModal('login')">Giriş Yap</button>
+                <button class="auth-btn btn-register" onclick="openModal('register')">Kayıt Ol</button>
+            </div>
+            <!-- logged-in state -->
+            <div id="userBtns" style="display:none" class="user-greeting">
+                <div class="avatar" id="userAvatar"></div>
+                <span id="userNameLabel"></span>
+                <button class="btn-logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Çıkış</button>
+            </div>
+        </div>
+
+        <div class="header-phone"><i class="fas fa-phone-alt" style="font-size:14px;margin-right:6px"></i>444 41 14</div>
+    </div>
+</header>
+
+<!-- HERO SLIDER -->
+<section class="hero">
+    <div class="slides" id="slides">
+        <div class="slide slide-1">
+            <div class="slide-content">
+                <span class="badge">89 Yıllık Deneyim</span>
+                <h2>Kalite, Tecrübe,<br>Güven...</h2>
+                <p>Ölçüm ve tartım ihtiyaçlarınıza ileri teknoloji ürün ve sistemlerimiz ile profesyonel çözümler üretiyoruz.</p>
+                <a href="#urunler" class="btn">Ürünleri Keşfet</a>
+                <a href="#kurumsal" class="btn btn-outline">Hakkımızda</a>
+            </div>
+        </div>
+        <div class="slide slide-2">
+            <div class="slide-content">
+                <span class="badge">İleri Teknoloji</span>
+                <h2>Robotik Üretim<br>Tesisi</h2>
+                <p>İleri teknoloji makinalardan oluşan modern üretim tesisi ile yakalanan üstün ürün kalitesi.</p>
+                <a href="#urunler" class="btn">Ürünlerimiz</a>
+            </div>
+        </div>
+        <div class="slide slide-3">
+            <div class="slide-content">
+                <span class="badge">Son Teknoloji</span>
+                <h2>İnsansız Taşıt<br>Kantarı</h2>
+                <p>%100'e yakın verimlilik artışı ile tartım süreçlerinizi otomatik hale getiriyoruz.</p>
+                <a href="#otomasyon" class="btn">Detaylar</a>
+            </div>
+        </div>
+    </div>
+    <button class="slider-btn prev" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+    <button class="slider-btn next" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
+    <div class="slider-dots">
+        <button class="dot active" onclick="goToSlide(0)"></button>
+        <button class="dot" onclick="goToSlide(1)"></button>
+        <button class="dot" onclick="goToSlide(2)"></button>
+    </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+    <div class="stats-inner">
+        <h2>Rakamlarla Tunaylar</h2>
+        <div class="stats-grid">
+            <div>
+                <div class="stat-num" data-target="89">0</div>
+                <div class="stat-label">Yıllık Tartı<br>Sektörü Tecrübesi</div>
+            </div>
+            <div>
+                <div class="stat-num" data-target="300">0</div>
+                <div class="stat-label">Uzman Mühendis<br>ve Çalışan</div>
+            </div>
+            <div>
+                <div class="stat-num" data-target="15000">0</div>
+                <div class="stat-label">m² Üretim<br>Tesisi</div>
+            </div>
+            <div>
+                <div class="stat-num" data-target="50000">0</div>
+                <div class="stat-label">Adetten Fazla<br>Sistem Kurulumu</div>
+            </div>
+            <div>
+                <div class="stat-num" data-target="64">0</div>
+                <div class="stat-label">Farklı Ülkeye<br>İhracat</div>
+            </div>
+            <div>
+                <div class="stat-num" data-target="1000">0</div>
+                <div class="stat-label">Büyük Ölçekli<br>Global Proje</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CORPORATE -->
+<section class="corporate" id="kurumsal">
+    <div class="corporate-inner">
+        <div class="corporate-text">
+            <span class="overline">Hakkımızda</span>
+            <h2>Türkiye'nin Lider<br>Tartı Üreticisi</h2>
+            <p>Türkiye'nin en eski tartı aleti üretici şirketlerinden olan Tunaylar 1936 yılında kurularak mekanik baskül ve taşıt kantarları imalatı ile faaliyetlerine başlamıştır.</p>
+            <p>1980'li yıllarda elektronik tartım sistemleri üzerine yoğunlaşarak ülkemizde ilk elektronik taşıt kantarının imalatçısı olmuştur. Günümüzde taşıt kantarı sektöründe ülkemizin lider firmasıdır.</p>
+            <a href="#" class="btn">Detaylar</a>
+        </div>
+        <div class="corp-img">
+            <img src="https://tunaylar.com/wp-content/uploads/2020/01/v_tech_beton_rampali.jpg" alt="Tunaylar Fabrika">
+            <div class="corp-badge">
+                <div class="num">89</div>
+                <div class="txt">Yıllık<br>Deneyim</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="urunler">
+    <div class="products-inner">
+        <div class="section-title">
+            <span class="overline">Ürün Kataloğu</span>
+            <h2>Ürün ve Sistemler</h2>
+            <div class="divider"></div>
+            <p>Geniş ürün yelpazemiz ile her sektörün tartım ve ölçüm ihtiyaçlarına yönelik çözümler sunuyoruz.</p>
+        </div>
+        <div class="products-grid">
+            <a href="#" class="product-card">
+                <img src="https://tunaylar.com/wp-content/uploads/2020/01/v_tech_beton_rampali.jpg" alt="Taşıt Kantarları">
+                <div class="card-body">
+                    <span class="tag">Tartı Sistemleri</span>
+                    <h3>Taşıt Kantarları</h3>
+                    <p>Kamyon ve demiryolu tartım sistemleri, yüksek kapasiteli ve dayanıklı çözümler.</p>
+                    <span class="card-link">Detaylar <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+            <a href="#" class="product-card">
+                <img src="https://tunaylar.com/wp-content/uploads/2020/01/Endustriyel_Urunler.jpg" alt="Endüstriyel Ürünler">
+                <div class="card-body">
+                    <span class="tag">Endüstriyel</span>
+                    <h3>Endüstriyel Baskül</h3>
+                    <p>Farklı boyut ve kapasitelerde endüstriyel tartım platformları ve baskül çeşitleri.</p>
+                    <span class="card-link">Detaylar <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+            <a href="#" class="product-card">
+                <img src="https://tunaylar.com/wp-content/uploads/2020/01/Mobil_Tartim_Urunler.jpg" alt="Mobil Tartım">
+                <div class="card-body">
+                    <span class="tag">Mobil</span>
+                    <h3>Mobil Tartım</h3>
+                    <p>Vinç kantarları, forklift tartım sistemleri ve transpalet baskülleri.</p>
+                    <span class="card-link">Detaylar <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+            <a href="#" class="product-card">
+                <img src="https://tunaylar.com/wp-content/uploads/2020/01/Dinamik_Tartim_Urunler.jpg" alt="Dinamik Tartım">
+                <div class="card-body">
+                    <span class="tag">Dinamik</span>
+                    <h3>Dinamik Tartım</h3>
+                    <p>Checkweigher ve bant tartıları ile hızlı üretim hatlarına özel çözümler.</p>
+                    <span class="card-link">Detaylar <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+            <a href="#" class="product-card">
+                <img src="https://tunaylar.com/wp-content/uploads/2020/01/Boyut_Olcum.jpg" alt="Boyut Ölçüm">
+                <div class="card-body">
+                    <span class="tag">Ölçüm</span>
+                    <h3>Boyut Ölçüm Sistemleri</h3>
+                    <p>Boyut ve hacim ölçüm sistemleri ile lojistik ve depolama alanlarında verimlilik.</p>
+                    <span class="card-link">Detaylar <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+            <a href="#" class="product-card">
+                <img src="https://tunaylar.com/wp-content/uploads/2020/01/teker-y%C4%B1kama.jpg" alt="Tekerlek Yıkama">
+                <div class="card-body">
+                    <span class="tag">Hijyen</span>
+                    <h3>Tekerlek Yıkama Sistemleri</h3>
+                    <p>Otomatik tekerlek yıkama ve dezenfeksiyon sistemleri ile saha hijyeni.</p>
+                    <span class="card-link">Detaylar <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- AUTOMATION -->
+<section class="automation" id="otomasyon">
+    <div class="automation-inner">
+        <div class="automation-text">
+            <span class="overline">İleri Teknoloji</span>
+            <h2>İnsansız Taşıt Kantarı Otomasyonu</h2>
+            <p>İleri teknoloji sensör ve ekipmanlarla donatılan Tunaylar İnsansız Taşıt Kantarı Otomasyonları ile tartım süreçlerinizi hiçbir insan müdahalesine ihtiyaç duymadan otomatik olarak gerçekleştirebilirsiniz.</p>
+            <div class="automation-features">
+                <div class="auto-feat">
+                    <div class="icon"><i class="fas fa-robot"></i></div>
+                    <div>
+                        <h4>Tam Otomasyon</h4>
+                        <p>İnsan müdahalesi olmadan 7/24 kesintisiz tartım işlemi</p>
+                    </div>
+                </div>
+                <div class="auto-feat">
+                    <div class="icon"><i class="fas fa-chart-line"></i></div>
+                    <div>
+                        <h4>%100 Verimlilik</h4>
+                        <p>İleri raporlama seçenekleriyle tartım süreçlerinde maksimum verimlilik</p>
+                    </div>
+                </div>
+                <div class="auto-feat">
+                    <div class="icon"><i class="fas fa-camera"></i></div>
+                    <div>
+                        <h4>Görüntü Tanıma</h4>
+                        <p>Plaka tanıma, görüntü işleme ve AI destekli analiz sistemleri</p>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <a href="#" class="btn" style="margin-top:8px">Daha Fazla Bilgi</a>
+        </div>
+        <div class="auto-img">
+            <img src="https://tunaylar.com/wp-content/uploads/2020/01/insansiz-tasit-kantari.jpg"
+                 onerror="this.src='https://tunaylar.com/wp-content/uploads/2020/01/v_tech_beton_rampali.jpg'"
+                 alt="İnsansız Taşıt Kantarı">
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="hizmetler">
+    <div class="services-inner">
+        <div class="section-title">
+            <span class="overline">Destek</span>
+            <h2>Hizmetlerimiz</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-headset"></i></div>
+                <h3>7/24 Teknik Destek</h3>
+                <p>Merkez ve Türkiye genelinde hizmet veren bölge servislerimiz ile kesintisiz teknik destek hizmetindeyiz.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-flask"></i></div>
+                <h3>Akredite Kalibrasyon Laboratuvarı</h3>
+                <p>Tunaylar Laboratuvarı, TÜRKAK tarafından TS EN ISO/IEC 17025:2012 standardına göre akredite edilmiştir.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"><i class="fas fa-tools"></i></div>
+                <h3>Kalibrasyon ve Ayar Hizmetleri</h3>
+                <p>Periyodik Kalibrasyon Hizmet Paketleri ile her zaman doğru ve güvenilir tartım garantisi sunuyoruz.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- NEWS -->
+<section class="news" id="haberler">
+    <div class="news-inner">
+        <div class="section-title">
+            <span class="overline">Güncel</span>
+            <h2>Haber ve Duyurular</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="news-grid">
+            <a href="#" class="news-card">
+                <img src="https://tunaylar.com/wp-content/uploads/2021/11/big5global.jpg"
+                     onerror="this.src='https://placehold.co/600x300/c0392b/white?text=Haber'"
+                     alt="Big 5 Global">
+                <div class="news-body">
+                    <div class="news-date"><i class="far fa-calendar-alt"></i> Kasım 2021</div>
+                    <h3>Big 5 Global Fuarı'na Davetlisiniz</h3>
+                    <p>We would like to invite you to visit us at the Big 5 Global exhibition in Dubai.</p>
+                    <span class="read-more">Devamını Oku →</span>
+                </div>
+            </a>
+            <a href="#" class="news-card">
+                <img src="https://tunaylar.com/wp-content/uploads/2020/01/uzbuild.jpg"
+                     onerror="this.src='https://placehold.co/600x300/c0392b/white?text=Haber'"
+                     alt="Uzbuild">
+                <div class="news-body">
+                    <div class="news-date"><i class="far fa-calendar-alt"></i> Ocak 2020</div>
+                    <h3>UzBuild Uluslararası İnşaat Fuarı</h3>
+                    <p>2020 yılı fuar ve tanıtım planlaması kapsamında Tunaylar, UzBuild fuarına katıldı.</p>
+                    <span class="read-more">Devamını Oku →</span>
+                </div>
+            </a>
+            <a href="#" class="news-card">
+                <img src="https://tunaylar.com/wp-content/uploads/2019/11/tunaylar_banner_0023.jpg"
+                     alt="WinScale Touch">
+                <div class="news-body">
+                    <div class="news-date"><i class="far fa-calendar-alt"></i> Mart 2020</div>
+                    <h3>Ege Bölge Müdürlüğümüz Hizmete Girdi</h3>
+                    <p>Trakya Servis Bölge Müdürlüğümüz'ün ardından Ege Bölge Müdürlüğümüz de hizmete girmiştir.</p>
+                    <span class="read-more">Devamını Oku →</span>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="iletisim">
+    <h2>Çözüm İçin Bizimle İletişime Geçin</h2>
+    <p>Tartım ve ölçüm ihtiyaçlarınız için uzman ekibimiz size özel çözümler üretmek için hazır.</p>
+    <a href="tel:+904444114" class="btn btn-white">
+        <i class="fas fa-phone-alt" style="margin-right:8px"></i>444 41 14
+    </a>
+    &nbsp;&nbsp;
+    <a href="mailto:info@tunaylar.com" class="btn" style="background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.4)">
+        <i class="fas fa-envelope" style="margin-right:8px"></i>E-posta Gönder
+    </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-about">
+            <a href="#" class="footer-logo">TUNAYLAR <span>BASKÜL</span></a>
+            <p>Türkiye'nin en eski tartı aleti üretici şirketlerinden olan Tunaylar, 1936 yılından bu yana ölçüm ve tartım teknolojilerinde öncü olmaya devam etmektedir.</p>
+            <div class="footer-social">
+                <a href="https://www.facebook.com/TunaylarBaskul/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/tunaylar.baskul/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/company/tunaylar-baskül-san-ve-tic-a-ş-/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Ürünler</h4>
+            <ul>
+                <li><a href="#">Taşıt Kantarları</a></li>
+                <li><a href="#">Endüstriyel Baskül</a></li>
+                <li><a href="#">Mobil Tartım</a></li>
+                <li><a href="#">Dinamik Tartım</a></li>
+                <li><a href="#">Boyut Ölçüm</a></li>
+                <li><a href="#">Tekerlek Yıkama</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Kurumsal</h4>
+            <ul>
+                <li><a href="#">Hakkımızda</a></li>
+                <li><a href="#">Kalite Politikası</a></li>
+                <li><a href="#">Belgeler</a></li>
+                <li><a href="#">Kariyer</a></li>
+                <li><a href="#">Haberler</a></li>
+                <li><a href="#">İletişim</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>İletişim</h4>
+            <div class="footer-contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>İkitelli Organize Sanayi Bölgesi, İstanbul, Türkiye</span>
+            </div>
+            <div class="footer-contact-item">
+                <i class="fas fa-phone-alt"></i>
+                <span>444 41 14</span>
+            </div>
+            <div class="footer-contact-item">
+                <i class="fas fa-envelope"></i>
+                <span>info@tunaylar.com</span>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        © 2025 – Tunaylar Baskül Sanayi ve Ticaret A.Ş. Tüm Hakları Saklıdır.
+    </div>
+</footer>
+
+<!-- ── AUTH MODAL ── -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-header">
+            <div class="logo-sm">TUNAYLAR <span>BASKÜL</span></div>
+            <h2 id="modalTitle">Giriş Yap</h2>
+            <button class="modal-close" onclick="closeModal()" aria-label="Kapat"><i class="fas fa-times"></i></button>
+        </div>
+
+        <div class="modal-tabs">
+            <button class="modal-tab active" id="tabLogin"    onclick="switchTab('login')">Giriş Yap</button>
+            <button class="modal-tab"        id="tabRegister" onclick="switchTab('register')">Kayıt Ol</button>
+        </div>
+
+        <div class="modal-body">
+
+            <!-- LOGIN FORM -->
+            <form class="modal-form active" id="formLogin" onsubmit="submitLogin(event)" novalidate>
+                <div class="form-alert" id="loginAlert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="loginAlertMsg"></span>
+                </div>
+                <div class="form-group">
+                    <label for="loginEmail">E-posta</label>
+                    <input type="email" id="loginEmail" placeholder="ornek@email.com" autocomplete="email">
+                    <div class="form-error" id="loginEmailErr">Geçerli bir e-posta adresi girin.</div>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Şifre</label>
+                    <div class="input-wrap">
+                        <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+                        <button type="button" class="eye-toggle" onclick="toggleEye('loginPassword', this)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="form-error" id="loginPasswordErr">Şifre boş bırakılamaz.</div>
+                </div>
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-sign-in-alt" style="margin-right:8px"></i>Giriş Yap
+                </button>
+                <div class="form-switch">
+                    Hesabınız yok mu? <a onclick="switchTab('register')">Kayıt Ol</a>
+                </div>
+            </form>
+
+            <!-- REGISTER FORM -->
+            <form class="modal-form" id="formRegister" onsubmit="submitRegister(event)" novalidate>
+                <div class="form-alert" id="registerAlert">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="registerAlertMsg"></span>
+                </div>
+                <div class="form-group">
+                    <label for="regName">Ad Soyad</label>
+                    <input type="text" id="regName" placeholder="Adınız Soyadınız" autocomplete="name">
+                    <div class="form-error" id="regNameErr">Ad Soyad en az 2 karakter olmalıdır.</div>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">E-posta</label>
+                    <input type="email" id="regEmail" placeholder="ornek@email.com" autocomplete="email">
+                    <div class="form-error" id="regEmailErr">Geçerli bir e-posta adresi girin.</div>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Şifre</label>
+                    <div class="input-wrap">
+                        <input type="password" id="regPassword" placeholder="En az 6 karakter" autocomplete="new-password"
+                               oninput="updateStrength(this.value)">
+                        <button type="button" class="eye-toggle" onclick="toggleEye('regPassword', this)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+                    <div class="form-error" id="regPasswordErr">Şifre en az 6 karakter olmalıdır.</div>
+                </div>
+                <div class="form-group">
+                    <label for="regConfirm">Şifre Tekrar</label>
+                    <div class="input-wrap">
+                        <input type="password" id="regConfirm" placeholder="Şifrenizi tekrar girin" autocomplete="new-password">
+                        <button type="button" class="eye-toggle" onclick="toggleEye('regConfirm', this)">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="form-error" id="regConfirmErr">Şifreler eşleşmiyor.</div>
+                </div>
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-user-plus" style="margin-right:8px"></i>Kayıt Ol
+                </button>
+                <div class="form-switch">
+                    Zaten hesabınız var mı? <a onclick="switchTab('login')">Giriş Yap</a>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMsg"></span>
+</div>
+
+<!-- FLOATING BUTTONS -->
+<div class="float-btns">
+    <a href="https://wa.me/905017514174" class="float-btn float-wa" target="_blank" title="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="https://telegram.me/export_tunaylar" class="float-btn float-tg" target="_blank" title="Telegram">
+        <i class="fab fa-telegram-plane"></i>
+    </a>
+</div>
+
+<script>
+    // ── SLIDER ──
+    let current = 0;
+    const slides = document.getElementById('slides');
+    const dots = document.querySelectorAll('.dot');
+    const total = 3;
+    let autoTimer;
+
+    function updateSlider() {
+        slides.style.transform = `translateX(-${current * 100}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    function changeSlide(dir) {
+        current = (current + dir + total) % total;
+        updateSlider();
+        resetAuto();
+    }
+
+    function goToSlide(i) {
+        current = i;
+        updateSlider();
+        resetAuto();
+    }
+
+    function resetAuto() {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(() => changeSlide(1), 5000);
+    }
+
+    autoTimer = setInterval(() => changeSlide(1), 5000);
+
+    // ════════════════════════════════════════
+    // AUTH — LocalStorage
+    // ════════════════════════════════════════
+
+    // ── helpers ──
+    function getUsers() {
+        return JSON.parse(localStorage.getItem('tun_users') || '[]');
+    }
+    function saveUsers(users) {
+        localStorage.setItem('tun_users', JSON.stringify(users));
+    }
+    function getSession() {
+        return JSON.parse(localStorage.getItem('tun_session') || 'null');
+    }
+    function saveSession(user) {
+        localStorage.setItem('tun_session', JSON.stringify(user));
+    }
+    function clearSession() {
+        localStorage.removeItem('tun_session');
+    }
+
+    // ── UI state ──
+    function updateAuthUI() {
+        const user = getSession();
+        const guestBtns = document.getElementById('guestBtns');
+        const userBtns  = document.getElementById('userBtns');
+        if (user) {
+            guestBtns.style.display = 'none';
+            userBtns.style.display  = 'flex';
+            document.getElementById('userNameLabel').textContent = user.name;
+            document.getElementById('userAvatar').textContent = user.name.charAt(0).toUpperCase();
+        } else {
+            guestBtns.style.display = 'flex';
+            userBtns.style.display  = 'none';
+        }
+    }
+
+    // ── modal ──
+    function openModal(tab) {
+        document.getElementById('modalOverlay').classList.add('active');
+        document.body.style.overflow = 'hidden';
+        switchTab(tab || 'login');
+    }
+    function closeModal() {
+        document.getElementById('modalOverlay').classList.remove('active');
+        document.body.style.overflow = '';
+        clearFormErrors();
+    }
+    function handleOverlayClick(e) {
+        if (e.target === document.getElementById('modalOverlay')) closeModal();
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    function switchTab(tab) {
+        const isLogin = tab === 'login';
+        document.getElementById('tabLogin').classList.toggle('active', isLogin);
+        document.getElementById('tabRegister').classList.toggle('active', !isLogin);
+        document.getElementById('formLogin').classList.toggle('active', isLogin);
+        document.getElementById('formRegister').classList.toggle('active', !isLogin);
+        document.getElementById('modalTitle').textContent = isLogin ? 'Giriş Yap' : 'Kayıt Ol';
+        clearFormErrors();
+    }
+
+    // ── validation helpers ──
+    function showErr(id, errId, show) {
+        const inp = document.getElementById(id);
+        const err = document.getElementById(errId);
+        inp.classList.toggle('error', show);
+        err.classList.toggle('show', show);
+        return show;
+    }
+    function isValidEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+    function clearFormErrors() {
+        document.querySelectorAll('.form-group input').forEach(i => i.classList.remove('error'));
+        document.querySelectorAll('.form-error').forEach(e => e.classList.remove('show'));
+        document.querySelectorAll('.form-alert').forEach(a => a.classList.remove('show','success','danger'));
+    }
+    function setAlert(id, msgId, type, msg) {
+        const el = document.getElementById(id);
+        const msgEl = document.getElementById(msgId);
+        el.className = 'form-alert show ' + type;
+        msgEl.textContent = msg;
+        el.querySelector('i').className = type === 'success'
+            ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+    }
+
+    // ── login ──
+    function submitLogin(e) {
+        e.preventDefault();
+        clearFormErrors();
+        const email    = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        let hasErr = false;
+        if (!isValidEmail(email))  hasErr = showErr('loginEmail',    'loginEmailErr',    true) || hasErr;
+        if (!password)             hasErr = showErr('loginPassword', 'loginPasswordErr', true) || hasErr;
+        if (hasErr) return;
+
+        const users = getUsers();
+        const user  = users.find(u => u.email === email && u.password === password);
+        if (!user) {
+            setAlert('loginAlert', 'loginAlertMsg', 'danger', 'E-posta veya şifre hatalı.');
+            return;
+        }
+        saveSession({ name: user.name, email: user.email });
+        closeModal();
+        updateAuthUI();
+        showToast('success', `Hoş geldiniz, ${user.name}! 👋`);
+    }
+
+    // ── register ──
+    function submitRegister(e) {
+        e.preventDefault();
+        clearFormErrors();
+        const name     = document.getElementById('regName').value.trim();
+        const email    = document.getElementById('regEmail').value.trim();
+        const password = document.getElementById('regPassword').value;
+        const confirm  = document.getElementById('regConfirm').value;
+        let hasErr = false;
+        if (name.length < 2)          hasErr = showErr('regName',     'regNameErr',     true) || hasErr;
+        if (!isValidEmail(email))     hasErr = showErr('regEmail',    'regEmailErr',    true) || hasErr;
+        if (password.length < 6)      hasErr = showErr('regPassword', 'regPasswordErr', true) || hasErr;
+        if (confirm !== password)     hasErr = showErr('regConfirm',  'regConfirmErr',  true) || hasErr;
+        if (hasErr) return;
+
+        const users = getUsers();
+        if (users.find(u => u.email === email)) {
+            setAlert('registerAlert', 'registerAlertMsg', 'danger', 'Bu e-posta adresi zaten kayıtlı.');
+            return;
+        }
+        users.push({ name, email, password });
+        saveUsers(users);
+        saveSession({ name, email });
+        closeModal();
+        updateAuthUI();
+        showToast('success', `Kayıt başarılı! Hoş geldiniz, ${name}! 🎉`);
+    }
+
+    // ── logout ──
+    function logout() {
+        const user = getSession();
+        clearSession();
+        updateAuthUI();
+        showToast('success', `Güle güle, ${user ? user.name : ''}!`);
+    }
+
+    // ── eye toggle ──
+    function toggleEye(inputId, btn) {
+        const inp = document.getElementById(inputId);
+        const isText = inp.type === 'text';
+        inp.type = isText ? 'password' : 'text';
+        btn.querySelector('i').className = isText ? 'fas fa-eye' : 'fas fa-eye-slash';
+    }
+
+    // ── password strength ──
+    function updateStrength(val) {
+        const fill = document.getElementById('strengthFill');
+        let score = 0;
+        if (val.length >= 6)  score++;
+        if (val.length >= 10) score++;
+        if (/[A-Z]/.test(val)) score++;
+        if (/[0-9]/.test(val)) score++;
+        if (/[^A-Za-z0-9]/.test(val)) score++;
+        const pct   = (score / 5) * 100;
+        const color = score <= 1 ? '#e74c3c' : score <= 3 ? '#f39c12' : '#2ecc71';
+        fill.style.width    = pct + '%';
+        fill.style.background = color;
+    }
+
+    // ── toast ──
+    let toastTimer;
+    function showToast(type, msg) {
+        const t = document.getElementById('toast');
+        const i = t.querySelector('i');
+        document.getElementById('toastMsg').textContent = msg;
+        t.className = `toast t-${type} show`;
+        i.className = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle';
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
+    }
+
+    // initialise on load
+    updateAuthUI();
+
+    // ── COUNTER ANIMATION ──
+    function animateCounters() {
+        document.querySelectorAll('.stat-num').forEach(el => {
+            const target = parseInt(el.dataset.target);
+            const duration = 2000;
+            const step = target / (duration / 16);
+            let current = 0;
+            const timer = setInterval(() => {
+                current = Math.min(current + step, target);
+                el.textContent = Math.floor(current).toLocaleString('tr-TR');
+                if (current >= target) clearInterval(timer);
+            }, 16);
+        });
+    }
+
+    // Trigger counter when stats section enters viewport
+    const statsSection = document.querySelector('.stats');
+    let counted = false;
+    const observer = new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting && !counted) {
+            counted = true;
+            animateCounters();
+        }
+    }, { threshold: 0.3 });
+    observer.observe(statsSection);
+</script>
+
+</body>
+</html>

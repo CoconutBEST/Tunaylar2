@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mağaza – Tunaylar Baskül</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --red: #c0392b;
+            --dark: #1a1a1a;
+            --darker: #111;
+            --gray: #f5f5f5;
+            --border: #e0e0e0;
+            --white: #fff;
+            --shadow: 0 2px 12px rgba(0,0,0,.08);
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Roboto', sans-serif; color: var(--dark); background: #f8f8f8; overflow-x: hidden; }
+
+        /* ── TOP BAR ── */
+        .topbar { background: var(--darker); color: #aaa; font-size: 13px; padding: 8px 0; }
+        .topbar .inner { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+        .topbar a { color: #aaa; text-decoration: none; }
+        .topbar a:hover { color: #fff; }
+        .topbar .social a { margin-left: 12px; font-size: 15px; }
+
+        /* ── HEADER ── */
+        header { background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,.08); position: sticky; top: 0; z-index: 1000; }
+        .header-inner { max-width: 1280px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; justify-content: space-between; height: 72px; gap: 16px; }
+        .logo { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--dark); text-decoration: none; letter-spacing: -.5px; white-space: nowrap; }
+        .logo span { color: var(--red); }
+        nav { display: flex; align-items: center; gap: 4px; }
+        nav a { color: var(--dark); text-decoration: none; font-size: 12px; font-weight: 600; padding: 7px 12px; border-radius: 4px; transition: background .2s, color .2s; text-transform: uppercase; letter-spacing: .5px; }
+        nav a:hover, nav a.active { background: var(--red); color: #fff; }
+        .nav-auth { display: flex; align-items: center; gap: 8px; }
+        .auth-btn { font-size: 12px; font-weight: 600; padding: 7px 14px; border-radius: 4px; cursor: pointer; border: none; font-family: 'Roboto', sans-serif; transition: background .2s, color .2s; }
+        .btn-login { background: transparent; border: 2px solid var(--red) !important; color: var(--red); }
+        .btn-login:hover { background: var(--red); color: #fff; }
+        .btn-register { background: var(--red); color: #fff; }
+        .btn-register:hover { background: #a93226; }
+        .user-greeting { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; }
+        .user-greeting .avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--red); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; font-family: 'Montserrat', sans-serif; }
+        .btn-logout { background: none; border: none; color: #888; font-size: 12px; cursor: pointer; padding: 4px 8px; border-radius: 4px; transition: background .2s, color .2s; font-family: 'Roboto', sans-serif; }
+        .btn-logout:hover { background: #f5f5f5; color: var(--red); }
+
+        /* cart icon */
+        .cart-icon-btn { position: relative; background: none; border: none; cursor: pointer; font-size: 20px; color: var(--dark); padding: 6px 10px; transition: color .2s; }
+        .cart-icon-btn:hover { color: var(--red); }
+        .cart-badge { position: absolute; top: 0; right: 0; background: var(--red); color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+        .nav-toggle { display: none; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--dark); }
+
+        /* ── BREADCRUMB ── */
+        .breadcrumb { background: var(--white); border-bottom: 1px solid var(--border); }
+        .breadcrumb .inner { max-width: 1280px; margin: 0 auto; padding: 12px 20px; font-size: 13px; color: #888; display: flex; align-items: center; gap: 8px; }
+        .breadcrumb a { color: #888; text-decoration: none; } .breadcrumb a:hover { color: var(--red); }
+        .breadcrumb span { color: var(--dark); font-weight: 600; }
+
+        /* ── HERO BANNER ── */
+        .shop-hero { background: linear-gradient(135deg, var(--darker) 0%, #2c3e50 100%); color: #fff; padding: 50px 20px; text-align: center; }
+        .shop-hero h1 { font-family: 'Montserrat', sans-serif; font-size: 38px; font-weight: 800; margin-bottom: 10px; }
+        .shop-hero p { font-size: 15px; color: rgba(255,255,255,.75); max-width: 500px; margin: 0 auto; }
+
+        /* ── LAYOUT ── */
+        .shop-layout { max-width: 1280px; margin: 0 auto; padding: 36px 20px 60px; display: grid; grid-template-columns: 260px 1fr; gap: 28px; align-items: start; }
+        @media (max-width: 900px) { .shop-layout { grid-template-columns: 1fr; } }
+
+        /* ── SIDEBAR ── */
+        .sidebar { background: var(--white); border-radius: 10px; box-shadow: var(--shadow); overflow: hidden; position: sticky; top: 90px; }
+        .sidebar-section { padding: 20px; border-bottom: 1px solid var(--border); }
+        .sidebar-section:last-child { border-bottom: none; }
+        .sidebar-section h3 { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--dark); margin-bottom: 14px; }
+
+        /* search */
+        .search-box { position: relative; }
+        .search-box input { width: 100%; padding: 9px 36px 9px 12px; border: 2px solid var(--border); border-radius: 6px; font-size: 13px; font-family: 'Roboto', sans-serif; outline: none; transition: border-color .2s; }
+        .search-box input:focus { border-color: var(--red); }
+        .search-box i { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); color: #aaa; font-size: 13px; pointer-events: none; }
+
+        /* categories */
+        .cat-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+        .cat-list li button { width: 100%; text-align: left; padding: 9px 12px; border-radius: 6px; border: none; background: none; font-size: 13px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background .2s, color .2s; font-family: 'Roboto', sans-serif; color: var(--dark); }
+        .cat-list li button:hover, .cat-list li button.active { background: rgba(192,57,43,.08); color: var(--red); font-weight: 600; }
+        .cat-count { background: var(--gray); color: #888; font-size: 11px; padding: 2px 7px; border-radius: 20px; font-weight: 600; }
+        .cat-list li button.active .cat-count { background: var(--red); color: #fff; }
+
+        /* price range */
+        .price-row { display: flex; gap: 10px; align-items: center; }
+        .price-row input { width: 90px; padding: 8px 10px; border: 2px solid var(--border); border-radius: 6px; font-size: 13px; font-family: 'Roboto', sans-serif; outline: none; transition: border-color .2s; }
+        .price-row input:focus { border-color: var(--red); }
+        .price-sep { color: #aaa; font-size: 13px; }
+        .btn-filter { margin-top: 10px; width: 100%; padding: 9px; background: var(--red); color: #fff; border: none; border-radius: 6px; font-size: 12px; font-weight: 700; font-family: 'Montserrat', sans-serif; cursor: pointer; text-transform: uppercase; letter-spacing: .5px; transition: background .2s; }
+        .btn-filter:hover { background: #a93226; }
+        .btn-clear { margin-top: 6px; width: 100%; padding: 8px; background: none; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; color: #888; cursor: pointer; font-family: 'Roboto', sans-serif; transition: border-color .2s, color .2s; }
+        .btn-clear:hover { border-color: var(--red); color: var(--red); }
+
+        /* sort checkboxes */
+        .radio-list { display: flex; flex-direction: column; gap: 8px; }
+        .radio-list label { display: flex; align-items: center; gap: 9px; font-size: 13px; cursor: pointer; }
+        .radio-list input[type=radio] { accent-color: var(--red); width: 15px; height: 15px; cursor: pointer; }
+
+        /* ── MAIN CONTENT ── */
+        .shop-main {}
+        .toolbar { display: flex; justify-content: space-between; align-items: center; background: var(--white); border-radius: 8px; padding: 14px 18px; margin-bottom: 20px; box-shadow: var(--shadow); flex-wrap: wrap; gap: 10px; }
+        .result-count { font-size: 13px; color: #888; }
+        .result-count b { color: var(--dark); }
+        .sort-select { padding: 8px 14px; border: 2px solid var(--border); border-radius: 6px; font-size: 13px; font-family: 'Roboto', sans-serif; outline: none; cursor: pointer; transition: border-color .2s; }
+        .sort-select:focus { border-color: var(--red); }
+        .view-btns button { background: none; border: 1px solid var(--border); padding: 7px 10px; border-radius: 5px; cursor: pointer; color: #888; font-size: 14px; transition: all .2s; margin-left: 4px; }
+        .view-btns button.active, .view-btns button:hover { background: var(--red); color: #fff; border-color: var(--red); }
+
+        /* PRODUCT GRID */
+        .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .products-grid.list-view { grid-template-columns: 1fr; }
+        @media (max-width: 1100px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .products-grid { grid-template-columns: 1fr; } }
+
+        /* PRODUCT CARD */
+        .product-card { background: var(--white); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); transition: transform .3s, box-shadow .3s; display: flex; flex-direction: column; position: relative; }
+        .product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(0,0,0,.12); }
+        .products-grid.list-view .product-card { flex-direction: row; }
+
+        .card-img-wrap { position: relative; overflow: hidden; background: #f0f0f0; }
+        .card-img-wrap img { width: 100%; height: 200px; object-fit: cover; display: block; transition: transform .4s; }
+        .product-card:hover .card-img-wrap img { transform: scale(1.04); }
+        .products-grid.list-view .card-img-wrap img { width: 200px; height: 100%; min-height: 160px; flex-shrink: 0; }
+        .products-grid.list-view .card-img-wrap { width: 200px; flex-shrink: 0; }
+
+        .card-badge { position: absolute; top: 10px; left: 10px; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; }
+        .badge-new  { background: #2ecc71; color: #fff; }
+        .badge-sale { background: var(--red); color: #fff; }
+        .badge-hot  { background: #f39c12; color: #fff; }
+        .wishlist-btn { position: absolute; top: 10px; right: 10px; width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,.9); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #ccc; transition: color .2s, background .2s; box-shadow: 0 2px 6px rgba(0,0,0,.1); }
+        .wishlist-btn:hover, .wishlist-btn.active { color: #e74c3c; background: #fff; }
+
+        .card-body { padding: 16px 16px 14px; flex: 1; display: flex; flex-direction: column; }
+        .card-cat { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
+        .card-title { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; line-height: 1.35; margin-bottom: 8px; color: var(--dark); }
+        .card-desc { font-size: 12px; color: #888; line-height: 1.5; margin-bottom: 12px; flex: 1; }
+        .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; gap: 8px; }
+        .card-price { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: var(--dark); }
+        .card-price .old { font-size: 12px; color: #aaa; text-decoration: line-through; display: block; font-weight: 400; margin-bottom: 1px; }
+        .btn-add-cart { background: var(--red); color: #fff; border: none; border-radius: 6px; padding: 9px 14px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background .2s, transform .2s; white-space: nowrap; font-family: 'Roboto', sans-serif; }
+        .btn-add-cart:hover { background: #a93226; transform: translateY(-1px); }
+        .btn-add-cart.in-cart { background: #2ecc71; }
+        .btn-add-cart.in-cart:hover { background: #27ae60; }
+
+        /* rating */
+        .card-rating { display: flex; align-items: center; gap: 4px; margin-bottom: 8px; }
+        .stars { color: #f39c12; font-size: 11px; letter-spacing: 1px; }
+        .rating-count { font-size: 11px; color: #aaa; }
+
+        /* no results */
+        .no-results { text-align: center; padding: 60px 20px; color: #aaa; }
+        .no-results i { font-size: 48px; margin-bottom: 16px; display: block; }
+        .no-results h3 { font-size: 18px; color: #888; margin-bottom: 8px; }
+
+        /* ── CART DRAWER ── */
+        .cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 8000; opacity: 0; pointer-events: none; transition: opacity .3s; backdrop-filter: blur(2px); }
+        .cart-overlay.open { opacity: 1; pointer-events: all; }
+        .cart-drawer { position: fixed; top: 0; right: 0; width: 420px; max-width: 100vw; height: 100%; background: var(--white); z-index: 8001; display: flex; flex-direction: column; transform: translateX(100%); transition: transform .35s cubic-bezier(.4,0,.2,1); box-shadow: -8px 0 40px rgba(0,0,0,.15); }
+        .cart-drawer.open { transform: translateX(0); }
+        .cart-head { background: var(--dark); color: #fff; padding: 20px 22px; display: flex; justify-content: space-between; align-items: center; }
+        .cart-head h2 { font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 800; display: flex; align-items: center; gap: 10px; }
+        .cart-close { background: rgba(255,255,255,.1); border: none; color: #fff; width: 32px; height: 32px; border-radius: 50%; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+        .cart-close:hover { background: var(--red); }
+        .cart-items { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+        .cart-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #bbb; gap: 14px; }
+        .cart-empty i { font-size: 52px; }
+        .cart-empty p { font-size: 15px; }
+        .cart-item { display: flex; gap: 12px; align-items: flex-start; background: var(--gray); border-radius: 8px; padding: 12px; }
+        .cart-item img { width: 64px; height: 64px; object-fit: cover; border-radius: 6px; flex-shrink: 0; background: #e0e0e0; }
+        .cart-item-info { flex: 1; min-width: 0; }
+        .cart-item-title { font-size: 13px; font-weight: 700; line-height: 1.3; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .cart-item-price { font-size: 13px; font-weight: 800; color: var(--red); font-family: 'Montserrat', sans-serif; }
+        .qty-ctrl { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+        .qty-btn { width: 26px; height: 26px; border: 1px solid var(--border); border-radius: 4px; background: #fff; cursor: pointer; font-size: 14px; font-weight: 700; display: flex; align-items: center; justify-content: center; transition: border-color .2s, color .2s; }
+        .qty-btn:hover { border-color: var(--red); color: var(--red); }
+        .qty-num { font-size: 13px; font-weight: 700; min-width: 20px; text-align: center; }
+        .cart-item-del { background: none; border: none; color: #ccc; cursor: pointer; font-size: 15px; padding: 4px; transition: color .2s; align-self: flex-start; }
+        .cart-item-del:hover { color: var(--red); }
+        .cart-foot { border-top: 1px solid var(--border); padding: 18px 20px; background: #fff; }
+        .cart-summary { margin-bottom: 14px; }
+        .cart-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; color: #666; }
+        .cart-row.total { font-size: 16px; font-weight: 800; color: var(--dark); margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+        .btn-checkout { width: 100%; padding: 14px; background: var(--red); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 800; font-family: 'Montserrat', sans-serif; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: background .2s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-checkout:hover { background: #a93226; }
+        .btn-cont { width: 100%; padding: 10px; background: none; border: 1px solid var(--border); border-radius: 8px; font-size: 13px; color: #888; cursor: pointer; margin-top: 8px; transition: border-color .2s, color .2s; font-family: 'Roboto', sans-serif; }
+        .btn-cont:hover { border-color: var(--red); color: var(--red); }
+
+        /* ── CHECKOUT MODAL ── */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 9000; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .25s; backdrop-filter: blur(3px); }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        .modal { background: #fff; border-radius: 12px; width: 100%; max-width: 540px; margin: 16px; box-shadow: 0 24px 60px rgba(0,0,0,.25); overflow: hidden; transform: translateY(20px) scale(.97); transition: transform .25s; max-height: 90vh; display: flex; flex-direction: column; }
+        .modal-overlay.active .modal { transform: none; }
+        .modal-header { background: var(--dark); padding: 22px 28px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+        .modal-header h2 { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: #fff; }
+        .modal-close-btn { background: rgba(255,255,255,.1); border: none; color: #fff; width: 32px; height: 32px; border-radius: 50%; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+        .modal-close-btn:hover { background: var(--red); }
+        .modal-body { padding: 28px; overflow-y: auto; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: #666; margin-bottom: 6px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px 13px; border: 2px solid var(--border); border-radius: 6px; font-size: 13px; font-family: 'Roboto', sans-serif; outline: none; transition: border-color .2s; background: #fafafa; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--red); background: #fff; }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .order-summary-box { background: var(--gray); border-radius: 8px; padding: 16px; margin-bottom: 20px; }
+        .order-summary-box h4 { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; color: var(--dark); }
+        .order-item-row { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px; }
+        .order-total-row { display: flex; justify-content: space-between; font-size: 15px; font-weight: 800; border-top: 1px solid var(--border); padding-top: 10px; margin-top: 8px; }
+        .section-label { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--dark); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 2px solid var(--red); }
+        .btn-place-order { width: 100%; padding: 14px; background: var(--red); color: #fff; border: none; border-radius: 8px; font-size: 14px; font-weight: 800; font-family: 'Montserrat', sans-serif; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: background .2s; margin-top: 8px; }
+        .btn-place-order:hover { background: #a93226; }
+
+        /* ── SUCCESS MODAL ── */
+        .success-content { text-align: center; padding: 20px; }
+        .success-icon { width: 80px; height: 80px; background: rgba(46,204,113,.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 36px; color: #2ecc71; }
+        .success-content h3 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+        .success-content p { font-size: 14px; color: #666; line-height: 1.6; margin-bottom: 24px; }
+        .order-number { display: inline-block; background: var(--gray); border: 1px solid var(--border); padding: 8px 20px; border-radius: 6px; font-size: 13px; font-weight: 700; font-family: 'Montserrat', sans-serif; letter-spacing: 1px; margin-bottom: 20px; }
+
+        /* ── AUTH MODAL ── */
+        .auth-modal-header { background: var(--dark); padding: 22px 28px 18px; }
+        .auth-modal-header .logo-sm { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+        .auth-modal-header .logo-sm span { color: var(--red); }
+        .auth-modal-header h2 { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: #fff; }
+        .modal-tabs { display: flex; border-bottom: 2px solid #f0f0f0; background: #fafafa; }
+        .modal-tab { flex: 1; padding: 13px; text-align: center; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; border: none; background: none; color: #999; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: color .2s, border-color .2s; font-family: 'Roboto', sans-serif; }
+        .modal-tab.active { color: var(--red); border-bottom-color: var(--red); }
+        .modal-form { display: none; }
+        .modal-form.active { display: block; }
+        .form-alert { padding: 10px 14px; border-radius: 6px; font-size: 13px; margin-bottom: 14px; display: none; align-items: center; gap: 8px; }
+        .form-alert.show { display: flex; }
+        .form-alert.danger { background: #fdedec; color: #922b21; border: 1px solid #f5b7b1; }
+        .form-alert.success { background: #eafaf1; color: #1e8449; border: 1px solid #a9dfbf; }
+        .form-error { font-size: 11px; color: #e74c3c; margin-top: 4px; display: none; }
+        .form-error.show { display: block; }
+        .form-group input.error { border-color: #e74c3c; }
+        .btn-submit { width: 100%; padding: 12px; background: var(--red); color: #fff; border: none; border-radius: 6px; font-size: 13px; font-weight: 700; font-family: 'Montserrat', sans-serif; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: background .2s; margin-top: 4px; }
+        .btn-submit:hover { background: #a93226; }
+        .form-switch { text-align: center; margin-top: 14px; font-size: 13px; color: #888; }
+        .form-switch a { color: var(--red); font-weight: 700; cursor: pointer; }
+        .input-wrap { position: relative; }
+        .input-wrap input { padding-right: 40px; }
+        .eye-toggle { position: absolute; right: 11px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #aaa; cursor: pointer; font-size: 14px; transition: color .2s; }
+        .eye-toggle:hover { color: var(--red); }
+
+        /* ── TOAST ── */
+        .toast { position: fixed; bottom: 28px; right: 28px; background: #1a1a1a; color: #fff; padding: 13px 18px; border-radius: 8px; font-size: 13px; font-weight: 500; z-index: 9999; display: flex; align-items: center; gap: 10px; box-shadow: 0 8px 24px rgba(0,0,0,.25); transform: translateY(20px); opacity: 0; transition: transform .3s, opacity .3s; max-width: 320px; }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.t-success i { color: #2ecc71; }
+        .toast.t-error   i { color: #e74c3c; }
+        .toast.t-info    i { color: #3498db; }
+
+        /* ── PAGINATION ── */
+        .pagination { display: flex; justify-content: center; gap: 6px; margin-top: 36px; }
+        .page-btn { width: 38px; height: 38px; border-radius: 6px; border: 1px solid var(--border); background: #fff; cursor: pointer; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; transition: all .2s; font-family: 'Roboto', sans-serif; }
+        .page-btn:hover, .page-btn.active { background: var(--red); color: #fff; border-color: var(--red); }
+
+        /* ── FOOTER ── */
+        footer { background: #111; color: #aaa; padding: 40px 0 0; }
+        .footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 20px 30px; display: flex; justify-content: space-between; align-items: flex-start; gap: 30px; flex-wrap: wrap; }
+        .footer-logo { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 800; color: #fff; text-decoration: none; }
+        .footer-logo span { color: var(--red); }
+        .footer-about p { font-size: 12px; line-height: 1.7; margin-top: 10px; max-width: 260px; }
+        .footer-col h4 { color: #fff; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 14px; border-bottom: 2px solid var(--red); padding-bottom: 8px; display: inline-block; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 8px; }
+        .footer-col ul li a { color: #aaa; text-decoration: none; font-size: 12px; transition: color .2s; }
+        .footer-col ul li a:hover { color: #fff; }
+        .footer-bottom { border-top: 1px solid #222; padding: 16px 20px; text-align: center; font-size: 11px; color: #555; }
+
+        /* responsive */
+        @media (max-width: 900px) {
+            nav { display: none; position: absolute; top: 72px; left: 0; right: 0; background: #fff; flex-direction: column; padding: 14px; box-shadow: 0 4px 12px rgba(0,0,0,.1); align-items: flex-start; gap: 2px; }
+            nav.open { display: flex; }
+            .nav-toggle { display: block; }
+            .cart-drawer { width: 100%; }
+        }
+        @media (max-width: 600px) {
+            .form-row { grid-template-columns: 1fr; }
+            .shop-hero h1 { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+    <div class="inner">
+        <span><i class="fas fa-map-marker-alt" style="color:var(--red);margin-right:6px"></i>İkitelli OSB, İstanbul</span>
+        <div class="social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header>
+    <div class="header-inner">
+        <a href="index.html" class="logo">TUNAYLAR <span>BASKÜL</span></a>
+
+        <button class="nav-toggle" onclick="document.querySelector('nav').classList.toggle('open')">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <nav>
+            <a href="index.html">Ana Sayfa</a>
+            <a href="shop.html" class="active">Mağaza</a>
+            <a href="index.html#kurumsal">Kurumsal</a>
+            <a href="index.html#hizmetler">Hizmetler</a>
+            <a href="index.html#iletisim" class="contact-btn" style="background:var(--red);color:#fff;padding:7px 14px;border-radius:4px">İletişim</a>
+        </nav>
+
+        <div style="display:flex;align-items:center;gap:10px">
+            <!-- Cart -->
+            <button class="cart-icon-btn" onclick="openCart()" aria-label="Sepet">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-badge" id="cartBadge" style="display:none">0</span>
+            </button>
+
+            <!-- Auth area -->
+            <div class="nav-auth">
+                <div id="guestBtns">
+                    <button class="auth-btn btn-login"    onclick="openAuthModal('login')">Giriş Yap</button>
+                    <button class="auth-btn btn-register" onclick="openAuthModal('register')">Kayıt Ol</button>
+                </div>
+                <div id="userBtns" style="display:none" class="user-greeting">
+                    <div class="avatar" id="userAvatar"></div>
+                    <span id="userNameLabel"></span>
+                    <button class="btn-logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+    <div class="inner">
+        <a href="index.html">Ana Sayfa</a>
+        <i class="fas fa-chevron-right" style="font-size:10px"></i>
+        <span>Mağaza</span>
+    </div>
+</div>
+
+<!-- HERO -->
+<div class="shop-hero">
+    <h1><i class="fas fa-store" style="color:var(--red);margin-right:12px"></i>Ürün Mağazası</h1>
+    <p>Tartım ve ölçüm sistemlerimizi keşfedin, sepetinize ekleyin.</p>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="shop-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-section">
+            <h3><i class="fas fa-search" style="color:var(--red);margin-right:6px"></i>Ürün Ara</h3>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Ürün adı..." oninput="applyFilters()">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+
+        <div class="sidebar-section">
+            <h3><i class="fas fa-list" style="color:var(--red);margin-right:6px"></i>Kategoriler</h3>
+            <ul class="cat-list" id="catList"></ul>
+        </div>
+
+        <div class="sidebar-section">
+            <h3><i class="fas fa-tag" style="color:var(--red);margin-right:6px"></i>Fiyat Aralığı</h3>
+            <div class="price-row">
+                <input type="number" id="priceMin" placeholder="Min ₺" min="0">
+                <span class="price-sep">–</span>
+                <input type="number" id="priceMax" placeholder="Max ₺" min="0">
+            </div>
+            <button class="btn-filter" onclick="applyFilters()">Filtrele</button>
+            <button class="btn-clear"  onclick="clearFilters()">Filtreleri Temizle</button>
+        </div>
+
+        <div class="sidebar-section">
+            <h3><i class="fas fa-sort" style="color:var(--red);margin-right:6px"></i>Sırala</h3>
+            <div class="radio-list">
+                <label><input type="radio" name="sort" value="default" checked onchange="applyFilters()"> Varsayılan</label>
+                <label><input type="radio" name="sort" value="price-asc"  onchange="applyFilters()"> Fiyat: Düşükten Yükseğe</label>
+                <label><input type="radio" name="sort" value="price-desc" onchange="applyFilters()"> Fiyat: Yüksekten Düşüğe</label>
+                <label><input type="radio" name="sort" value="name-asc"   onchange="applyFilters()"> İsim A–Z</label>
+                <label><input type="radio" name="sort" value="rating"     onchange="applyFilters()"> En Yüksek Puan</label>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="shop-main">
+        <div class="toolbar">
+            <div class="result-count" id="resultCount">Yükleniyor...</div>
+            <div style="display:flex;align-items:center;gap:10px">
+                <select class="sort-select" id="sortSelect" onchange="applyFilters()">
+                    <option value="default">Sırala</option>
+                    <option value="price-asc">Fiyat ↑</option>
+                    <option value="price-desc">Fiyat ↓</option>
+                    <option value="name-asc">İsim A–Z</option>
+                    <option value="rating">Puana Göre</option>
+                </select>
+                <div class="view-btns">
+                    <button id="btnGrid" class="active" onclick="setView('grid')" title="Grid görünüm"><i class="fas fa-th"></i></button>
+                    <button id="btnList" onclick="setView('list')" title="Liste görünüm"><i class="fas fa-list"></i></button>
+                </div>
+            </div>
+        </div>
+
+        <div class="products-grid" id="productsGrid"></div>
+        <div class="pagination" id="pagination"></div>
+    </main>
+</div>
+
+<!-- ── CART DRAWER ── -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+    <div class="cart-head">
+        <h2><i class="fas fa-shopping-cart"></i> Sepetim</h2>
+        <button class="cart-close" onclick="closeCart()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-foot" id="cartFoot" style="display:none">
+        <div class="cart-summary">
+            <div class="cart-row"><span>Ara toplam</span><span id="cartSubtotal">₺0</span></div>
+            <div class="cart-row"><span>Kargo</span><span id="cartShipping">₺0</span></div>
+            <div class="cart-row total"><span>Toplam</span><span id="cartTotal">₺0</span></div>
+        </div>
+        <button class="btn-checkout" onclick="openCheckout()">
+            <i class="fas fa-lock"></i> Siparişi Tamamla
+        </button>
+        <button class="btn-cont" onclick="closeCart()">Alışverişe Devam Et</button>
+    </div>
+</div>
+
+<!-- ── CHECKOUT MODAL ── -->
+<div class="modal-overlay" id="checkoutOverlay">
+    <div class="modal" id="checkoutModal">
+        <div class="modal-header">
+            <h2><i class="fas fa-lock" style="margin-right:8px;color:var(--red)"></i>Sipariş Formu</h2>
+            <button class="modal-close-btn" onclick="closeCheckout()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body" id="checkoutBody"></div>
+    </div>
+</div>
+
+<!-- ── AUTH MODAL ── -->
+<div class="modal-overlay" id="authOverlay">
+    <div class="modal" style="max-width:400px" id="authModal">
+        <div class="auth-modal-header modal-header" style="position:relative">
+            <div class="logo-sm">TUNAYLAR <span>BASKÜL</span></div>
+            <h2 id="authTitle">Giriş Yap</h2>
+            <button class="modal-close-btn" onclick="closeAuthModal()" style="position:absolute;top:14px;right:16px"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-tabs">
+            <button class="modal-tab active" id="tabLogin"    onclick="switchAuthTab('login')">Giriş Yap</button>
+            <button class="modal-tab"        id="tabRegister" onclick="switchAuthTab('register')">Kayıt Ol</button>
+        </div>
+        <div class="modal-body" style="padding:24px 28px 28px">
+            <!-- Login -->
+            <form class="modal-form active" id="formLogin" onsubmit="submitLogin(event)" novalidate>
+                <div class="form-alert" id="loginAlert"><i class="fas fa-exclamation-circle"></i><span id="loginAlertMsg"></span></div>
+                <div class="form-group">
+                    <label>E-posta</label>
+                    <input type="email" id="loginEmail" placeholder="ornek@email.com">
+                    <div class="form-error" id="loginEmailErr">Geçerli bir e-posta girin.</div>
+                </div>
+                <div class="form-group">
+                    <label>Şifre</label>
+                    <div class="input-wrap">
+                        <input type="password" id="loginPassword" placeholder="••••••••">
+                        <button type="button" class="eye-toggle" onclick="toggleEye('loginPassword',this)"><i class="fas fa-eye"></i></button>
+                    </div>
+                    <div class="form-error" id="loginPasswordErr">Şifre boş bırakılamaz.</div>
+                </div>
+                <button type="submit" class="btn-submit">Giriş Yap</button>
+                <div class="form-switch">Hesabınız yok mu? <a onclick="switchAuthTab('register')">Kayıt Ol</a></div>
+            </form>
+            <!-- Register -->
+            <form class="modal-form" id="formRegister" onsubmit="submitRegister(event)" novalidate>
+                <div class="form-alert" id="registerAlert"><i class="fas fa-exclamation-circle"></i><span id="registerAlertMsg"></span></div>
+                <div class="form-group">
+                    <label>Ad Soyad</label>
+                    <input type="text" id="regName" placeholder="Adınız Soyadınız">
+                    <div class="form-error" id="regNameErr">En az 2 karakter girin.</div>
+                </div>
+                <div class="form-group">
+                    <label>E-posta</label>
+                    <input type="email" id="regEmail" placeholder="ornek@email.com">
+                    <div class="form-error" id="regEmailErr">Geçerli bir e-posta girin.</div>
+                </div>
+                <div class="form-group">
+                    <label>Şifre</label>
+                    <div class="input-wrap">
+                        <input type="password" id="regPassword" placeholder="En az 6 karakter">
+                        <button type="button" class="eye-toggle" onclick="toggleEye('regPassword',this)"><i class="fas fa-eye"></i></button>
+                    </div>
+                    <div class="form-error" id="regPasswordErr">En az 6 karakter olmalı.</div>
+                </div>
+                <div class="form-group">
+                    <label>Şifre Tekrar</label>
+                    <div class="input-wrap">
+                        <input type="password" id="regConfirm" placeholder="Tekrar girin">
+                        <button type="button" class="eye-toggle" onclick="toggleEye('regConfirm',this)"><i class="fas fa-eye"></i></button>
+                    </div>
+                    <div class="form-error" id="regConfirmErr">Şifreler eşleşmiyor.</div>
+                </div>
+                <button type="submit" class="btn-submit">Kayıt Ol</button>
+                <div class="form-switch">Hesabınız var mı? <a onclick="switchAuthTab('login')">Giriş Yap</a></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><i class="fas fa-check-circle"></i><span id="toastMsg"></span></div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-about">
+            <a href="index.html" class="footer-logo">TUNAYLAR <span>BASKÜL</span></a>
+            <p>1936'dan bu yana Türkiye'nin lider tartı üreticisi. Kalite, tecrübe ve güven.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Kategoriler</h4>
+            <ul>
+                <li><a href="#">Taşıt Kantarları</a></li>
+                <li><a href="#">Endüstriyel Baskül</a></li>
+                <li><a href="#">Mobil Tartım</a></li>
+                <li><a href="#">Dinamik Tartım</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Hızlı Bağlantılar</h4>
+            <ul>
+                <li><a href="index.html">Ana Sayfa</a></li>
+                <li><a href="index.html#kurumsal">Hakkımızda</a></li>
+                <li><a href="index.html#hizmetler">Hizmetler</a></li>
+                <li><a href="index.html#iletisim">İletişim</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">© 2025 – Tunaylar Baskül Sanayi ve Ticaret A.Ş. Tüm Hakları Saklıdır.</div>
+</footer>
+
+<script>
+// ════════════════════════════════════════════════
+//  DATA
+// ════════════════════════════════════════════════
+const PRODUCTS = [
+    { id:1,  name:'V-Tech Beton Rampalı Taşıt Kantarı', cat:'Taşıt Kantarları',   price:185000, oldPrice:210000, rating:4.9, reviews:38, badge:'sale', img:'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=600&q=80',  desc:'Yüksek kapasiteli, dayanıklı beton rampalı platform. Akredite kalibrasyon ile teslim.' },
+    { id:2,  name:'Çelik Rampalı Taşıt Kantarı',        cat:'Taşıt Kantarları',   price:145000, oldPrice:null,   rating:4.7, reviews:22, badge:'new',  img:'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=600&q=80',  desc:'Hızlı kurulum avantajlı çelik platform. 60–100 ton kapasiteli seçenekler.' },
+    { id:3,  name:'Enstrümantasyon Göstergeli Baskül',  cat:'Endüstriyel Baskül', price:24500,  oldPrice:28000,  rating:4.8, reviews:54, badge:'sale', img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',  desc:'IP68 koruma sınıfı. Paslanmaz çelik platform. Farklı boyut seçenekleri.' },
+    { id:4,  name:'Platform Baskülü 3×4 m',             cat:'Endüstriyel Baskül', price:18750,  oldPrice:null,   rating:4.6, reviews:31, badge:null,   img:'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=600&q=80',  desc:'3×4 metre platform, 10 ton kapasiteli. Sağlam çelik konstrüksiyon.' },
+    { id:5,  name:'Forklift Tartım Sistemi',             cat:'Mobil Tartım',       price:32000,  oldPrice:35500,  rating:4.5, reviews:19, badge:'hot',  img:'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&q=80',  desc:'Forklift aparatına monte edilir. Gerçek zamanlı tartım ve veri kaydı.' },
+    { id:6,  name:'Transpalet Baskülü',                  cat:'Mobil Tartım',       price:8900,   oldPrice:null,   rating:4.4, reviews:42, badge:null,   img:'https://images.unsplash.com/photo-1553413077-190dd305871c?w=600&q=80',  desc:'Taşıma ve tartımı tek işlemde yapar. 2 ton kapasiteli.' },
+    { id:7,  name:'Vinç Kantarı 5 Ton',                 cat:'Mobil Tartım',       price:6400,   oldPrice:7200,   rating:4.7, reviews:28, badge:'sale', img:'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=600&q=80',  desc:'Yüksek hassasiyetli halka tipi yük hücresi. Su geçirmez tasarım.' },
+    { id:8,  name:'Bant Tartısı / Belt Scale',           cat:'Dinamik Tartım',     price:55000,  oldPrice:null,   rating:4.8, reviews:17, badge:'new',  img:'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80',  desc:'Sürekli üretim hatları için debi ve kümülatif ölçüm sistemi.' },
+    { id:9,  name:'Checkweigher Otomatik Kontrol Tartısı', cat:'Dinamik Tartım',   price:78000,  oldPrice:85000,  rating:4.9, reviews:24, badge:'hot',  img:'https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80',  desc:'Yüksek hızda paket ağırlığı kontrolü. Sınır dışı ürünleri otomatik ayırır.' },
+    { id:10, name:'3D Boyut Ölçüm Sistemi',              cat:'Boyut Ölçüm',        price:95000,  oldPrice:null,   rating:4.6, reviews:11, badge:'new',  img:'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=600&q=80',  desc:'Lazer teknolojisi ile boy, en, yükseklik ve hacim ölçümü.' },
+    { id:11, name:'Otomatik Tekerlek Yıkama Sistemi',    cat:'Tekerlek Yıkama',    price:42000,  oldPrice:48000,  rating:4.5, reviews:33, badge:'sale', img:'https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?w=600&q=80',  desc:'Şantiye çıkışı kara kirleticisini önler. Galvanizli çelik havuz.' },
+    { id:12, name:'Dezenfeksiyon Tüneli',                cat:'Tekerlek Yıkama',    price:28500,  oldPrice:null,   rating:4.3, reviews:14, badge:null,   img:'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80',  desc:'Biyogüvenlik için araç altı dezenfeksiyon sistemi.' },
+];
+
+// ════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════
+let cart        = JSON.parse(localStorage.getItem('tun_cart') || '[]');
+let wishlist    = JSON.parse(localStorage.getItem('tun_wishlist') || '[]');
+let filteredProducts = [...PRODUCTS];
+let currentPage = 1;
+const PER_PAGE  = 6;
+let currentView = 'grid';
+let activeCategory = 'all';
+
+// ════════════════════════════════════════════════
+//  CART
+// ════════════════════════════════════════════════
+function saveCart() { localStorage.setItem('tun_cart', JSON.stringify(cart)); }
+
+function addToCart(id) {
+    const product = PRODUCTS.find(p => p.id === id);
+    if (!product) return;
+    const existing = cart.find(i => i.id === id);
+    if (existing) existing.qty++;
+    else cart.push({ id, qty: 1 });
+    saveCart();
+    renderCartBadge();
+    renderCartDrawer();
+    showToast('success', `"${product.name}" sepete eklendi!`);
+    updateAddBtns();
+}
+
+function removeFromCart(id) {
+    cart = cart.filter(i => i.id !== id);
+    saveCart();
+    renderCartBadge();
+    renderCartDrawer();
+    updateAddBtns();
+}
+
+function changeQty(id, delta) {
+    const item = cart.find(i => i.id === id);
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) return removeFromCart(id);
+    saveCart();
+    renderCartBadge();
+    renderCartDrawer();
+}
+
+function renderCartBadge() {
+    const total = cart.reduce((s, i) => s + i.qty, 0);
+    const badge = document.getElementById('cartBadge');
+    badge.textContent = total;
+    badge.style.display = total > 0 ? 'flex' : 'none';
+}
+
+function getCartTotal() {
+    return cart.reduce((s, i) => {
+        const p = PRODUCTS.find(p => p.id === i.id);
+        return s + (p ? p.price * i.qty : 0);
+    }, 0);
+}
+
+function renderCartDrawer() {
+    const container = document.getElementById('cartItems');
+    const foot = document.getElementById('cartFoot');
+    if (cart.length === 0) {
+        container.innerHTML = `<div class="cart-empty"><i class="fas fa-shopping-cart"></i><p>Sepetiniz boş</p></div>`;
+        foot.style.display = 'none';
+        return;
+    }
+    foot.style.display = 'block';
+    container.innerHTML = cart.map(item => {
+        const p = PRODUCTS.find(p => p.id === item.id);
+        if (!p) return '';
+        return `
+        <div class="cart-item">
+            <img src="${p.img}" alt="${p.name}" onerror="this.style.background='#e0e0e0'">
+            <div class="cart-item-info">
+                <div class="cart-item-title">${p.name}</div>
+                <div class="cart-item-price">${fmt(p.price * item.qty)}</div>
+                <div class="qty-ctrl">
+                    <button class="qty-btn" onclick="changeQty(${p.id},-1)">−</button>
+                    <span class="qty-num">${item.qty}</span>
+                    <button class="qty-btn" onclick="changeQty(${p.id},1)">+</button>
+                </div>
+            </div>
+            <button class="cart-item-del" onclick="removeFromCart(${p.id})" title="Kaldır"><i class="fas fa-trash"></i></button>
+        </div>`;
+    }).join('');
+
+    const subtotal = getCartTotal();
+    const shipping = subtotal > 100000 ? 0 : 2500;
+    document.getElementById('cartSubtotal').textContent = fmt(subtotal);
+    document.getElementById('cartShipping').textContent = shipping === 0 ? 'Ücretsiz' : fmt(shipping);
+    document.getElementById('cartTotal').textContent = fmt(subtotal + shipping);
+}
+
+function openCart()  { document.getElementById('cartDrawer').classList.add('open'); document.getElementById('cartOverlay').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeCart() { document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartOverlay').classList.remove('open'); document.body.style.overflow=''; }
+
+function updateAddBtns() {
+    document.querySelectorAll('[data-cart-btn]').forEach(btn => {
+        const id = parseInt(btn.dataset.cartBtn);
+        const inCart = cart.some(i => i.id === id);
+        btn.classList.toggle('in-cart', inCart);
+        btn.innerHTML = inCart
+            ? '<i class="fas fa-check"></i> Sepette'
+            : '<i class="fas fa-cart-plus"></i> Ekle';
+    });
+}
+
+// ════════════════════════════════════════════════
+//  WISHLIST
+// ════════════════════════════════════════════════
+function toggleWishlist(id) {
+    const idx = wishlist.indexOf(id);
+    if (idx === -1) { wishlist.push(id); showToast('info', 'Favorilere eklendi'); }
+    else { wishlist.splice(idx,1); showToast('info', 'Favorilerden çıkarıldı'); }
+    localStorage.setItem('tun_wishlist', JSON.stringify(wishlist));
+    document.querySelectorAll(`[data-wish="${id}"]`).forEach(btn => btn.classList.toggle('active', wishlist.includes(id)));
+}
+
+// ════════════════════════════════════════════════
+//  FILTERS & RENDER
+// ════════════════════════════════════════════════
+function applyFilters() {
+    const query    = document.getElementById('searchInput').value.toLowerCase();
+    const minPrice = parseFloat(document.getElementById('priceMin').value) || 0;
+    const maxPrice = parseFloat(document.getElementById('priceMax').value) || Infinity;
+    const sort     = document.querySelector('input[name=sort]:checked')?.value
+                  || document.getElementById('sortSelect').value
+                  || 'default';
+
+    let list = PRODUCTS.filter(p => {
+        const matchCat    = activeCategory === 'all' || p.cat === activeCategory;
+        const matchSearch = p.name.toLowerCase().includes(query) || p.cat.toLowerCase().includes(query);
+        const matchPrice  = p.price >= minPrice && p.price <= maxPrice;
+        return matchCat && matchSearch && matchPrice;
+    });
+
+    if (sort === 'price-asc')  list.sort((a,b) => a.price - b.price);
+    if (sort === 'price-desc') list.sort((a,b) => b.price - a.price);
+    if (sort === 'name-asc')   list.sort((a,b) => a.name.localeCompare(b.name,'tr'));
+    if (sort === 'rating')     list.sort((a,b) => b.rating - a.rating);
+
+    filteredProducts = list;
+    currentPage = 1;
+    renderProducts();
+}
+
+function clearFilters() {
+    document.getElementById('searchInput').value = '';
+    document.getElementById('priceMin').value = '';
+    document.getElementById('priceMax').value = '';
+    document.querySelector('input[name=sort][value=default]').checked = true;
+    document.getElementById('sortSelect').value = 'default';
+    activeCategory = 'all';
+    document.querySelectorAll('.cat-list button').forEach(b => b.classList.toggle('active', b.dataset.cat === 'all'));
+    applyFilters();
+}
+
+function renderCategories() {
+    const cats = ['all', ...new Set(PRODUCTS.map(p => p.cat))];
+    const counts = {};
+    PRODUCTS.forEach(p => { counts[p.cat] = (counts[p.cat]||0)+1; });
+    const list = document.getElementById('catList');
+    list.innerHTML = cats.map(c => `
+        <li><button data-cat="${c}" class="${c==='all'?'active':''}" onclick="setCategory('${c}')">
+            ${c==='all' ? 'Tüm Ürünler' : c}
+            <span class="cat-count">${c==='all' ? PRODUCTS.length : counts[c]}</span>
+        </button></li>
+    `).join('');
+}
+
+function setCategory(cat) {
+    activeCategory = cat;
+    document.querySelectorAll('.cat-list button').forEach(b => b.classList.toggle('active', b.dataset.cat === cat));
+    applyFilters();
+}
+
+function setView(v) {
+    currentView = v;
+    const grid = document.getElementById('productsGrid');
+    grid.classList.toggle('list-view', v === 'list');
+    document.getElementById('btnGrid').classList.toggle('active', v === 'grid');
+    document.getElementById('btnList').classList.toggle('active', v === 'list');
+}
+
+function renderProducts() {
+    const grid = document.getElementById('productsGrid');
+    const count = document.getElementById('resultCount');
+
+    if (filteredProducts.length === 0) {
+        grid.innerHTML = `<div class="no-results" style="grid-column:1/-1"><i class="fas fa-search"></i><h3>Ürün bulunamadı</h3><p>Farklı arama kriterleri deneyin.</p></div>`;
+        count.innerHTML = `<b>0</b> ürün bulundu`;
+        document.getElementById('pagination').innerHTML = '';
+        return;
+    }
+
+    const start = (currentPage - 1) * PER_PAGE;
+    const page  = filteredProducts.slice(start, start + PER_PAGE);
+    count.innerHTML = `<b>${filteredProducts.length}</b> ürün bulundu`;
+
+    grid.innerHTML = page.map(p => {
+        const inCart = cart.some(i => i.id === p.id);
+        const inWish = wishlist.includes(p.id);
+        const stars  = '★'.repeat(Math.round(p.rating)) + '☆'.repeat(5 - Math.round(p.rating));
+        return `
+        <div class="product-card">
+            <div class="card-img-wrap">
+                <img src="${p.img}" alt="${p.name}" loading="lazy">
+                ${p.badge ? `<span class="card-badge badge-${p.badge}">${p.badge==='new'?'Yeni':p.badge==='sale'?'İndirim':'Popüler'}</span>` : ''}
+                <button class="wishlist-btn ${inWish?'active':''}" data-wish="${p.id}" onclick="toggleWishlist(${p.id})" title="Favorilere ekle"><i class="fas fa-heart"></i></button>
+            </div>
+            <div class="card-body">
+                <div class="card-cat">${p.cat}</div>
+                <div class="card-title">${p.name}</div>
+                <div class="card-rating">
+                    <span class="stars">${stars}</span>
+                    <span class="rating-count">(${p.reviews})</span>
+                </div>
+                <div class="card-desc">${p.desc}</div>
+                <div class="card-footer">
+                    <div class="card-price">
+                        ${p.oldPrice ? `<span class="old">${fmt(p.oldPrice)}</span>` : ''}
+                        ${fmt(p.price)}
+                    </div>
+                    <button class="btn-add-cart ${inCart?'in-cart':''}" data-cart-btn="${p.id}" onclick="addToCart(${p.id})">
+                        ${inCart ? '<i class="fas fa-check"></i> Sepette' : '<i class="fas fa-cart-plus"></i> Ekle'}
+                    </button>
+                </div>
+            </div>
+        </div>`;
+    }).join('');
+
+    renderPagination();
+}
+
+function renderPagination() {
+    const totalPages = Math.ceil(filteredProducts.length / PER_PAGE);
+    const pag = document.getElementById('pagination');
+    if (totalPages <= 1) { pag.innerHTML=''; return; }
+    let html = '';
+    if (currentPage > 1) html += `<button class="page-btn" onclick="goPage(${currentPage-1})"><i class="fas fa-chevron-left"></i></button>`;
+    for (let i = 1; i <= totalPages; i++) {
+        html += `<button class="page-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
+    }
+    if (currentPage < totalPages) html += `<button class="page-btn" onclick="goPage(${currentPage+1})"><i class="fas fa-chevron-right"></i></button>`;
+    pag.innerHTML = html;
+}
+
+function goPage(p) { currentPage = p; renderProducts(); window.scrollTo({top:400,behavior:'smooth'}); }
+
+// ════════════════════════════════════════════════
+//  CHECKOUT
+// ════════════════════════════════════════════════
+function openCheckout() {
+    if (cart.length === 0) return;
+    closeCart();
+    const user = getSession();
+    const subtotal = getCartTotal();
+    const shipping = subtotal > 100000 ? 0 : 2500;
+    const total    = subtotal + shipping;
+
+    const body = document.getElementById('checkoutBody');
+    body.innerHTML = `
+        <div class="order-summary-box">
+            <h4><i class="fas fa-receipt" style="color:var(--red);margin-right:6px"></i>Sipariş Özeti</h4>
+            ${cart.map(i => {
+                const p = PRODUCTS.find(p=>p.id===i.id);
+                return `<div class="order-item-row"><span>${p.name} <b style="color:#aaa">×${i.qty}</b></span><span style="font-weight:700">${fmt(p.price*i.qty)}</span></div>`;
+            }).join('')}
+            <div class="order-item-row" style="color:#888"><span>Kargo</span><span>${shipping===0?'Ücretsiz':fmt(shipping)}</span></div>
+            <div class="order-total-row"><span>Toplam</span><span style="color:var(--red)">${fmt(total)}</span></div>
+        </div>
+
+        <form id="checkoutForm" onsubmit="placeOrder(event)" novalidate>
+            <div class="section-label">Teslimat Bilgileri</div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Ad</label>
+                    <input type="text" id="coFirstName" placeholder="Adınız" value="${user ? user.name.split(' ')[0] : ''}" required>
+                </div>
+                <div class="form-group">
+                    <label>Soyad</label>
+                    <input type="text" id="coLastName"  placeholder="Soyadınız" value="${user ? (user.name.split(' ')[1]||'') : ''}" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>E-posta</label>
+                <input type="email" id="coEmail" placeholder="ornek@email.com" value="${user ? user.email : ''}" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Telefon</label>
+                    <input type="tel" id="coPhone" placeholder="05XX XXX XX XX" required>
+                </div>
+                <div class="form-group">
+                    <label>Şehir</label>
+                    <input type="text" id="coCity" placeholder="İstanbul" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Adres</label>
+                <textarea id="coAddress" placeholder="Sokak, mahalle, apartman..." required></textarea>
+            </div>
+
+            <div class="section-label" style="margin-top:20px">Ödeme Yöntemi</div>
+            <div class="form-group">
+                <label>Kart Numarası</label>
+                <input type="text" id="coCard" placeholder="•••• •••• •••• ••••" maxlength="19" oninput="formatCard(this)" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Son Kullanma</label>
+                    <input type="text" id="coExpiry" placeholder="AA/YY" maxlength="5" oninput="formatExpiry(this)" required>
+                </div>
+                <div class="form-group">
+                    <label>CVV</label>
+                    <input type="text" id="coCvv" placeholder="•••" maxlength="3" required>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-place-order">
+                <i class="fas fa-lock" style="margin-right:8px"></i>Siparişi Onayla — ${fmt(total)}
+            </button>
+        </form>`;
+
+    document.getElementById('checkoutOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeCheckout() {
+    document.getElementById('checkoutOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function formatCard(el) {
+    let v = el.value.replace(/\D/g,'').substring(0,16);
+    el.value = v.match(/.{1,4}/g)?.join(' ') || v;
+}
+function formatExpiry(el) {
+    let v = el.value.replace(/\D/g,'').substring(0,4);
+    if (v.length>=3) v = v.substring(0,2)+'/'+v.substring(2);
+    el.value = v;
+}
+
+function placeOrder(e) {
+    e.preventDefault();
+    const fields = ['coFirstName','coLastName','coEmail','coPhone','coCity','coAddress','coCard','coExpiry','coCvv'];
+    let ok = true;
+    fields.forEach(id => {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) { el.style.borderColor='#e74c3c'; ok=false; }
+        else el.style.borderColor='';
+    });
+    if (!ok) { showToast('error','Lütfen tüm alanları doldurun.'); return; }
+
+    // save order
+    const orderNum = 'TUN-' + Date.now().toString().slice(-8);
+    const user = getSession();
+    const orders = JSON.parse(localStorage.getItem('tun_orders')||'[]');
+    orders.push({
+        id: orderNum,
+        date: new Date().toLocaleDateString('tr-TR'),
+        items: cart.map(i => ({ ...i, product: PRODUCTS.find(p=>p.id===i.id)?.name })),
+        total: getCartTotal() + (getCartTotal() > 100000 ? 0 : 2500),
+        user: user ? user.email : document.getElementById('coEmail').value
+    });
+    localStorage.setItem('tun_orders', JSON.stringify(orders));
+
+    // clear cart
+    cart = [];
+    saveCart();
+    renderCartBadge();
+    renderCartDrawer();
+    updateAddBtns();
+    renderProducts();
+
+    // show success
+    const body = document.getElementById('checkoutBody');
+    body.innerHTML = `
+        <div class="success-content">
+            <div class="success-icon"><i class="fas fa-check"></i></div>
+            <h3>Siparişiniz Alındı!</h3>
+            <p>Teşekkürler! Siparişiniz başarıyla oluşturuldu.<br>En kısa sürede sizinle iletişime geçeceğiz.</p>
+            <div class="order-number"><i class="fas fa-hashtag" style="margin-right:4px;color:var(--red)"></i>${orderNum}</div>
+            <button class="btn-place-order" style="max-width:220px;margin:0 auto" onclick="closeCheckout()">
+                <i class="fas fa-home" style="margin-right:6px"></i>Ana Sayfaya Dön
+            </button>
+        </div>`;
+}
+
+// ════════════════════════════════════════════════
+//  AUTH
+// ════════════════════════════════════════════════
+function getUsers()   { return JSON.parse(localStorage.getItem('tun_users')||'[]'); }
+function saveUsers(u) { localStorage.setItem('tun_users', JSON.stringify(u)); }
+function getSession() { return JSON.parse(localStorage.getItem('tun_session')||'null'); }
+function saveSession(u){ localStorage.setItem('tun_session', JSON.stringify(u)); }
+function clearSession(){ localStorage.removeItem('tun_session'); }
+
+function updateAuthUI() {
+    const user = getSession();
+    document.getElementById('guestBtns').style.display  = user ? 'none' : 'flex';
+    document.getElementById('userBtns').style.display   = user ? 'flex' : 'none';
+    if (user) {
+        document.getElementById('userNameLabel').textContent = user.name;
+        document.getElementById('userAvatar').textContent    = user.name.charAt(0).toUpperCase();
+    }
+}
+
+function logout() {
+    const u = getSession();
+    clearSession(); updateAuthUI();
+    showToast('success', `Güle güle, ${u?.name||''}!`);
+}
+
+function openAuthModal(tab) {
+    document.getElementById('authOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    switchAuthTab(tab||'login');
+}
+function closeAuthModal() {
+    document.getElementById('authOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function switchAuthTab(tab) {
+    const login = tab==='login';
+    document.getElementById('tabLogin').classList.toggle('active', login);
+    document.getElementById('tabRegister').classList.toggle('active', !login);
+    document.getElementById('formLogin').classList.toggle('active', login);
+    document.getElementById('formRegister').classList.toggle('active', !login);
+    document.getElementById('authTitle').textContent = login ? 'Giriş Yap' : 'Kayıt Ol';
+    document.querySelectorAll('.form-error').forEach(e=>e.classList.remove('show'));
+    document.querySelectorAll('.form-alert').forEach(a=>a.classList.remove('show','success','danger'));
+}
+
+function isValidEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+function showErr(id,errId,show){
+    document.getElementById(id).classList.toggle('error',show);
+    document.getElementById(errId).classList.toggle('show',show);
+    return show;
+}
+function setAlert(id,msgId,type,msg){
+    const el=document.getElementById(id); const m=document.getElementById(msgId);
+    el.className='form-alert show '+type; m.textContent=msg;
+    el.querySelector('i').className=type==='success'?'fas fa-check-circle':'fas fa-exclamation-circle';
+}
+
+function submitLogin(e){
+    e.preventDefault();
+    const email=document.getElementById('loginEmail').value.trim();
+    const pass =document.getElementById('loginPassword').value;
+    let err=false;
+    if(!isValidEmail(email)) err=showErr('loginEmail','loginEmailErr',true)||err;
+    if(!pass)                err=showErr('loginPassword','loginPasswordErr',true)||err;
+    if(err) return;
+    const user=getUsers().find(u=>u.email===email&&u.password===pass);
+    if(!user){ setAlert('loginAlert','loginAlertMsg','danger','E-posta veya şifre hatalı.'); return; }
+    saveSession({name:user.name,email:user.email});
+    closeAuthModal(); updateAuthUI();
+    showToast('success',`Hoş geldiniz, ${user.name}! 👋`);
+}
+
+function submitRegister(e){
+    e.preventDefault();
+    const name=document.getElementById('regName').value.trim();
+    const email=document.getElementById('regEmail').value.trim();
+    const pass =document.getElementById('regPassword').value;
+    const conf =document.getElementById('regConfirm').value;
+    let err=false;
+    if(name.length<2)      err=showErr('regName','regNameErr',true)||err;
+    if(!isValidEmail(email))err=showErr('regEmail','regEmailErr',true)||err;
+    if(pass.length<6)      err=showErr('regPassword','regPasswordErr',true)||err;
+    if(conf!==pass)        err=showErr('regConfirm','regConfirmErr',true)||err;
+    if(err) return;
+    const users=getUsers();
+    if(users.find(u=>u.email===email)){ setAlert('registerAlert','registerAlertMsg','danger','Bu e-posta zaten kayıtlı.'); return; }
+    users.push({name,email,password:pass}); saveUsers(users);
+    saveSession({name,email}); closeAuthModal(); updateAuthUI();
+    showToast('success',`Kayıt başarılı! Hoş geldiniz, ${name}! 🎉`);
+}
+
+function toggleEye(id,btn){
+    const inp=document.getElementById(id);
+    inp.type=inp.type==='text'?'password':'text';
+    btn.querySelector('i').className=inp.type==='text'?'fas fa-eye-slash':'fas fa-eye';
+}
+
+// ════════════════════════════════════════════════
+//  HELPERS
+// ════════════════════════════════════════════════
+function fmt(n){ return '₺'+n.toLocaleString('tr-TR'); }
+
+let toastTimer;
+function showToast(type,msg){
+    const t=document.getElementById('toast');
+    document.getElementById('toastMsg').textContent=msg;
+    t.className=`toast t-${type} show`;
+    t.querySelector('i').className=type==='success'?'fas fa-check-circle':type==='error'?'fas fa-exclamation-circle':'fas fa-info-circle';
+    clearTimeout(toastTimer);
+    toastTimer=setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+// close modals on overlay click / Escape
+document.getElementById('checkoutOverlay').addEventListener('click', e=>{ if(e.target===document.getElementById('checkoutOverlay')) closeCheckout(); });
+document.getElementById('authOverlay').addEventListener('click',     e=>{ if(e.target===document.getElementById('authOverlay'))     closeAuthModal(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape'){ closeCheckout(); closeAuthModal(); closeCart(); }});
+
+// ════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════
+renderCategories();
+applyFilters();
+renderCartBadge();
+renderCartDrawer();
+updateAuthUI();
+</script>
+</body>
+</html>
